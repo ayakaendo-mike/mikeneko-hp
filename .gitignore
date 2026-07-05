@@ -1,0 +1,9 @@
+# Astro実装後に使用する想定の除外設定
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
