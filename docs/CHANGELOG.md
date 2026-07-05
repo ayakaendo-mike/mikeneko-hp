@@ -1,5 +1,10 @@
 # 変更履歴
 
+## 2026-07-06（追記3）
+- ドメイン(https://mikeneko.design)・Xserverプラン(スタンダード)・microCMSプラン(無料)を確定
+- microCMS公式料金ページを確認し、無料プランで4コンテンツモデルが問題なく収まることを検証（[decisions.md#d009](./decisions.md#d009)）
+- Xserverスタンダードプランのssh対応可否は未確認。サーバーパネルでの確認を依頼中。FTPフォールバック方針を追記
+
 ## 2026-07-06（追記2）
 - Xserverは既存契約を流用（新規契約なし）、ドメイン設定済みであることを反映
 - microCMSアカウントは作成済みであることを反映（[decisions.md#d008](./decisions.md#d008)）
