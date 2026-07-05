@@ -11,7 +11,8 @@
 - [Git/GitHub運用](docs/05-git-github-operations.md)
 - [更新フロー・AI運用ガイド](docs/06-operation-guide.md)
 - [デプロイ戦略](docs/07-deploy-strategy.md)
-- [デザインガイド（たたき台）](docs/08-design-guide.md)
+- [デザインガイド](docs/08-design-guide.md)
+- [コンテンツ・素材準備チェックリスト](docs/09-content-checklist.md)
 - [決定事項ログ](docs/decisions.md)
 - [変更履歴](docs/CHANGELOG.md)
 
