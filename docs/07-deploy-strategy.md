@@ -1,6 +1,6 @@
 ---
 title: デプロイ戦略
-status: 確定（Phase1時点）／SSH対応可否のみ要確認・実際のワークフロー実装は未着手
+status: 確定／実際のワークフロー実装は未着手（承認待ち）
 updated: 2026-07-06
 ---
 
@@ -16,9 +16,9 @@ updated: 2026-07-06
 ```
 
 ## 2. コード変更時のデプロイ
-1. PRが`main`にマージされる
+1. `main`にpush（またはPRマージ）される
 2. GitHub ActionsがトリガーされAstroをビルド
-3. SFTP/FTP（またはSSH+rsync、プランによる）でXserverへ転送
+3. **SSH+rsync**でXserverへ転送（スタンダードプランでSSH利用可能なことを確認済み、[decisions.md#d010](./decisions.md#d010)）
 
 ## 3. コンテンツ公開時のデプロイ
 1. スタッフがmicroCMSで記事等を公開
@@ -32,13 +32,11 @@ updated: 2026-07-06
 - 初期は**ローカルプレビュー**（`astro dev`）で代用
 - 予算・体制が整い次第、Vercel/Cloudflare PagesなどでPRごとのプレビューURLを発行する構成を検討（本番のみXserver、プレビューは別サービスという二重構成）
 
-## 5. Xserverに関する確認事項
+## 5. Xserverに関する確認事項（確定）
 
-- **契約・ドメイン**: 既存のXserver契約（スタンダードプラン）を流用。ドメイン`mikeneko.design`は既に向いている（[decisions.md#d009](./decisions.md#d009)）
-- **SSH接続可否**: 公式サイトではプラン別対応表が明確に見つからず未確認。Xserverの現行プラン(スタンダード/プレミアム/ビジネス)は近年SSHに対応している認識だが、確証が取れていない。**サーバーパネル→SSH設定で利用可否を確認いただきたい**
-  - SSH利用可 → SSH+rsyncまたはSCPでのデプロイを採用（高速・シンプル）
-  - SSH利用不可 → FTP/SFTPでのデプロイにフォールバック（[SamKirkland/FTP-Deploy-Action](https://github.com/SamKirkland/FTP-Deploy-Action) 等のGitHub Actionsが利用可能。速度はSSHよりやや劣るが機能的には問題ない）
-- 無料独自SSLの対応: 未確認（スタンダードプランなら通常対応のはずだが要確認）
+- **契約・ドメイン**: 既存のXserver契約（スタンダードプラン）を流用。ドメイン`mikeneko.design`は既に向いている
+- **SSH接続**: **利用可能なことを確認済み**（[decisions.md#d010](./decisions.md#d010)）。SSH+rsyncでのデプロイを採用する
+- 無料独自SSLの対応: 未確認（スタンダードプランなら通常対応のはずだが、実装時に念のため確認する）
 
 静的サイト（ビルド後は純粋なHTML/CSS/JS）を配信するだけなので、ハイスペックなプランは不要。スタンダードプランで十分。
 

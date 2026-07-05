@@ -1,5 +1,9 @@
 # 変更履歴
 
+## 2026-07-06（追記4）
+- XserverスタンダードプランでSSH利用可能なことを確認。デプロイ方式をSSH+rsyncに確定（[decisions.md#d010](./decisions.md#d010)）
+- Phase1で洗い出した未確定事項が全て解消。Phase2（Astro実装）着手の前提条件が整った
+
 ## 2026-07-06（追記3）
 - ドメイン(https://mikeneko.design)・Xserverプラン(スタンダード)・microCMSプラン(無料)を確定
 - microCMS公式料金ページを確認し、無料プランで4コンテンツモデルが問題なく収まることを検証（[decisions.md#d009](./decisions.md#d009)）
