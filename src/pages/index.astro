@@ -464,8 +464,9 @@ const cases: { tags: string[]; title: string; image: string | null; rows: [strin
     .hero .fact:last-child { border-bottom: 0; }
     /* 丸い図(サイクル図)が画面端ギリギリにならないよう左右に余白を作る */
     .cycle { max-width: 260px; }
-    .cycle .n-left { left: 9%; }
-    .cycle .n-right { left: 91%; }
+    .cycle .core { width: 40%; } /* 中心円をやや小さくして四隅のカードとの間隔を確保 */
+    .cycle .n-left { left: 6%; }
+    .cycle .n-right { left: 94%; }
     .problem, .about, .services, .works, .features, .flow, .cases, .cta { padding: 76px 0; }
     .hero .wrap { padding: 64px 24px 72px; }
   }
