@@ -116,7 +116,7 @@
   /* ================= PROBLEM ================= */
   .problem{padding:96px 0;}
   .prob-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px;}
-  .prob-card{background:#fff;border:1.5px solid var(--line);border-left:5px solid var(--yellow);border-radius:12px;padding:24px 26px;}
+  .prob-card{background:var(--cream);border-radius:16px;padding:26px 28px;}
   .prob-card .qt{font-size:16px;font-weight:700;line-height:1.75;}
   .prob-card .qs{margin-top:10px;font-size:12.5px;color:var(--muted);}
   .prob-band{
@@ -236,13 +236,6 @@
   .cta .chips{display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap;}
   .cta .chip{background:#fff;}
   .cta .actions{margin-top:36px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-  .contact-box{
-    margin-top:44px;background:#fff;border:1.5px solid var(--ink);border-radius:16px;
-    padding:26px 42px;display:inline-flex;gap:44px;flex-wrap:wrap;justify-content:center;
-    box-shadow:0 6px 0 rgba(35,34,44,.9);
-  }
-  .contact-box .cl{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--amber-deep);display:block;margin-bottom:6px;}
-  .contact-box .cv{font-size:15px;font-weight:700;}
 
   /* ================= FOOTER（黒面を使わず明るく・罫線で締める） ================= */
   footer.site{background:var(--cream2);border-top:2px solid var(--ink);color:var(--ink);padding:60px 0 32px;}
@@ -256,8 +249,7 @@
   .foot-col h4{font-size:10px;letter-spacing:.16em;color:var(--amber-deep);font-family:'IBM Plex Mono',monospace;margin-bottom:14px;}
   .foot-col a{display:block;font-size:13px;color:var(--ink2);margin-bottom:11px;transition:color .15s;}
   .foot-col a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--yellow);text-decoration-thickness:3px;text-underline-offset:4px;}
-  .foot-area{margin-top:42px;padding-top:22px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);}
-  .foot-copy{margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--muted);}
+  .foot-copy{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--muted);}
 
   .proto{background:var(--ink);color:#fff;text-align:center;font-size:12px;padding:8px 16px;letter-spacing:.03em;}
   .proto b{color:var(--yellow);}
@@ -283,7 +275,6 @@
     .hero .facts{flex-direction:column;}
     .hero .fact{border-right:0;border-bottom:1.5px solid var(--line);}
     .hero .fact:last-child{border-bottom:0;}
-    .contact-box{gap:24px;padding:22px 26px;}
     .problem,.about,.services,.works,.features,.flow,.cases,.cta{padding:64px 0;}
     .hero .wrap{padding:64px 24px 72px;}
   }
@@ -400,7 +391,7 @@
     <div class="svc-grid">
       <a class="svc pressable" href="#"><span class="no">S-01</span><div class="ic">▤</div><h3>ホームページ制作<small>WEB PRODUCTION</small></h3><p>コーポレートサイト / LP / WordPress / Studio。目的に合わせて設計します。</p></a>
       <a class="svc pressable" href="#"><span class="no">S-02</span><div class="ic">↻</div><h3>Web改善・リニューアル<small>IMPROVEMENT</small></h3><p>サイトリニューアル / 保守・更新 / SEO改善 / 表示速度改善。</p></a>
-      <a class="svc pressable" href="#"><span class="no">S-03</span><div class="ic">✦</div><h3>AI導入・DX支援<small>AI &amp; DX</small></h3><p>業務効率化・AI活用のご提案。お困りごとに合わせて伴走します。</p></a>
+      <a class="svc pressable" href="#"><span class="no">S-03</span><div class="ic">✦</div><h3>AI導入支援<small>AI SUPPORT</small></h3><p>業務効率化・AI活用のご提案。お困りごとに合わせて伴走します。</p></a>
       <a class="svc pressable" href="#"><span class="no">S-04</span><div class="ic">✎</div><h3>デザイン制作<small>GRAPHIC DESIGN</small></h3><p>名刺 / チラシ / パンフレット / ロゴ / バナー。紙もお任せください。</p></a>
       <a class="svc pressable" href="#"><span class="no">S-05</span><div class="ic">✆</div><h3>LINE公式構築<small>LINE</small></h3><p>LINE公式アカウントの構築・運用で、集客とリピートの導線をつくります。</p></a>
       <a class="svc pressable" href="#"><span class="no">S-06</span><div class="ic">⚙</div><h3>ITサポート<small>IT SUPPORT</small></h3><p>PC・ツールの困りごと / クラウド導入 / 社内IT整備をサポート。</p></a>
@@ -539,11 +530,6 @@
       <a class="btn btn-primary pressable" href="mailto:info@mikeneko.design">メールで相談する<span class="ar">→</span></a>
       <a class="btn pressable" href="#">お問い合わせフォーム</a>
     </div>
-    <div class="contact-box">
-      <div><span class="cl">COMPANY</span><span class="cv">みけねこデザイン</span></div>
-      <div><span class="cl">MAIL</span><span class="cv">info@mikeneko.design</span></div>
-      <div><span class="cl">AREA</span><span class="cv">松戸・鎌ケ谷・船橋・市川ほか</span></div>
-    </div>
   </div>
 </section>
 
@@ -586,8 +572,7 @@
         </div>
       </nav>
     </div>
-    <div class="foot-area">対応エリア：松戸市・鎌ケ谷市・船橋市・市川市を中心に千葉県全域（オンライン対応で全国可）</div>
-    <div class="foot-copy">© 2026 MIKENEKO DESIGN — WEB &amp; IT PARTNER</div>
+    <div class="foot-copy" style="margin-top:42px;padding-top:22px;border-top:1px solid var(--line);">© 2026 MIKENEKO DESIGN — WEB &amp; IT PARTNER</div>
   </div>
 </footer>
 
