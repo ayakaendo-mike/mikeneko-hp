@@ -33,10 +33,12 @@ const steps = [
   { n: '5', st: '運用・改善', sd: '公開後こそ本番。<br>育てる運用を継続サポート', hl: true },
 ];
 
-const cases = [
+// 画像・原稿は入稿待ち。image は実際の成果物画像パスが決まり次第セットする（未設定ならプレースホルダー表示）
+const cases: { tags: string[]; title: string; image: string | null; rows: [string, string][] }[] = [
   {
     tags: ['建設業', 'コーポレートサイト'],
-    title: '採用につながる、<br>会社の「顔」づくり',
+    title: '採用につながる会社の「顔」づくり',
+    image: null,
     rows: [
       ['BEFORE', 'ホームページが無く、若手採用や新規の信頼獲得に苦戦'],
       ['支援', '映像を活かしたコーポレートサイトを新規制作'],
@@ -45,7 +47,8 @@ const cases = [
   },
   {
     tags: ['新規事業', 'ブランディング一式'],
-    title: 'ゼロからの立ち上げを、<br>まるごと支援',
+    title: 'ゼロからの立ち上げをまるごと支援',
+    image: null,
     rows: [
       ['BEFORE', '新規事業の立ち上げでロゴもWebも何も無い状態'],
       ['支援', 'ロゴ・名刺・Webサイトをトータルで制作'],
@@ -54,7 +57,8 @@ const cases = [
   },
   {
     tags: ['地域団体', '紙媒体・IT相談'],
-    title: '「誰に頼めばいい？」を<br>ひとつの窓口に',
+    title: '「誰に頼めばいい？」をひとつの窓口に',
+    image: null,
     rows: [
       ['BEFORE', 'チラシ・記念誌などの制作先がバラバラで負担大'],
       ['支援', 'デザイン制作からITの困りごとまで一括対応'],
@@ -251,14 +255,21 @@ const cases = [
       <div class="case-grid">
         {cases.map((c) => (
           <a class="case pressable" href="/works/">
-            <div class="tags">{c.tags.map((t) => <span class="tag">{t}</span>)}</div>
-            <h3 set:html={c.title}></h3>
-            <dl>
-              {c.rows.map(([dt, dd]) => (
-                <div><dt>{dt}</dt><dd set:html={dd}></dd></div>
-              ))}
-            </dl>
-            <span class="more">詳しく見る →</span>
+            <div class="case-media">
+              {c.image
+                ? <img src={c.image} alt={c.title} loading="lazy" />
+                : <span class="ph">画像準備中</span>}
+            </div>
+            <div class="case-body">
+              <div class="tags">{c.tags.map((t) => <span class="tag">{t}</span>)}</div>
+              <h3>{c.title}</h3>
+              <dl>
+                {c.rows.map(([dt, dd]) => (
+                  <div><dt>{dt}</dt><dd set:html={dd}></dd></div>
+                ))}
+              </dl>
+              <span class="more">詳しく見る →</span>
+            </div>
           </a>
         ))}
       </div>
@@ -400,10 +411,20 @@ const cases = [
   /* ================= CASE ================= */
   .cases { padding: 112px 0 152px; }
   .case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
-  .case { padding: 26px 26px 24px; display: block; border-radius: 16px; }
+  .case { display: block; border-radius: 16px; overflow: hidden; }
+  .case-media {
+    aspect-ratio: 16 / 10; background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .case-media img { width: 100%; height: 100%; object-fit: cover; }
+  .case-media .ph { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; color: var(--muted); }
+  .case-body { padding: 22px 26px 24px; }
   .case .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
   .case .tag { font-size: 10.5px; font-weight: 700; color: var(--ink2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; letter-spacing: .03em; background: #fff; }
-  .case h3 { font-size: 16px; font-weight: 900; line-height: 1.65; letter-spacing: .02em; }
+  .case h3 {
+    font-size: 16px; font-weight: 900; line-height: 1.5; letter-spacing: .02em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
   .case dl { margin-top: 16px; }
   .case dl div { display: flex; gap: 12px; padding: 10px 0; border-top: 1px dashed var(--line); }
   .case dt { font-family: var(--font-mono); font-size: 9px; letter-spacing: .14em; color: var(--amber-deep); flex-shrink: 0; width: 52px; padding-top: 4px; }
@@ -441,6 +462,10 @@ const cases = [
     .hero .facts { flex-direction: column; }
     .hero .fact { border-right: 0; border-bottom: 1.5px solid var(--line); }
     .hero .fact:last-child { border-bottom: 0; }
+    /* 丸い図(サイクル図)が画面端ギリギリにならないよう左右に余白を作る */
+    .cycle { max-width: 260px; }
+    .cycle .n-left { left: 9%; }
+    .cycle .n-right { left: 91%; }
     .problem, .about, .services, .works, .features, .flow, .cases, .cta { padding: 76px 0; }
     .hero .wrap { padding: 64px 24px 72px; }
   }
