@@ -1,5 +1,9 @@
 # 変更履歴
 
+## 2026-07-06（実機レビュー反映）
+- トップページの余白を調整（詰まり解消）: セクション上下パディング 96→112px、sec-headの罫線下パディング 22→36px・見出し下の余白 +52px
+- 下部CTAをフォーム誘導のみに変更（メール相談ボタンを削除）
+
 ## 2026-07-06（Phase2着手：Astro実装）
 - Astro 7.0.6 でプロジェクトを初期化（脆弱性ゼロ）。@astrojs/sitemap・microcms-js-sdk を導入
 - デザイントークン（`src/styles/tokens.css`）とグローバルCSS（`src/styles/global.css`）をC案から実装

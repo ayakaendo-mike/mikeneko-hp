@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../config/site.ts';
 import { localBusiness } from '../lib/structured-data.ts';
 
 const services = [
@@ -280,8 +279,7 @@ const cases = [
         <span class="chip">その場で契約を迫りません</span>
       </div>
       <div class="actions">
-        <a class="btn btn-primary pressable" href={`mailto:${SITE.email}`}>メールで相談する<span class="ar">→</span></a>
-        <a class="btn pressable" href="/contact/">お問い合わせフォーム</a>
+        <a class="btn btn-primary pressable" href="/contact/">お問い合わせフォームへ<span class="ar">→</span></a>
       </div>
     </div>
   </section>
@@ -318,7 +316,7 @@ const cases = [
   .hero .fact .fv small { font-size: 10.5px; color: var(--ink2); font-weight: 700; }
 
   /* ================= PROBLEM ================= */
-  .problem { padding: 96px 0; }
+  .problem { padding: 112px 0; }
   .prob-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 40px; }
   .prob-card { background: var(--cream); border-radius: 16px; padding: 26px 28px; }
   .prob-card .qt { font-size: 16px; font-weight: 700; line-height: 1.75; }
@@ -333,7 +331,7 @@ const cases = [
   .prob-band .small { font-size: 13px; line-height: 2; color: var(--ink2); font-weight: 500; min-width: 230px; max-width: 330px; }
 
   /* ================= ABOUT ================= */
-  .about { padding: 96px 0; background: var(--yellow-pale); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .about { padding: 112px 0; background: var(--yellow-pale); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .about-grid { display: grid; grid-template-columns: 1fr 420px; gap: 60px; align-items: center; margin-top: 40px; }
   .about-copy p { font-size: 15px; line-height: 2.25; color: var(--ink2); margin-bottom: 18px; font-weight: 500; }
   .about-copy p b { color: var(--ink); }
@@ -351,7 +349,7 @@ const cases = [
   .cycle .core .t2 { font-size: clamp(16px, 2.4vw, 21px); font-weight: 900; letter-spacing: .03em; }
 
   /* ================= SERVICES ================= */
-  .services { padding: 96px 0; }
+  .services { padding: 112px 0; }
   .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
   .svc { padding: 26px 26px; display: block; border-radius: 14px; }
   .svc .no { font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; color: var(--muted); }
@@ -365,7 +363,7 @@ const cases = [
   .onestop .d { font-size: 13px; color: var(--ink2); line-height: 1.9; font-weight: 500; flex: 1; min-width: 260px; }
 
   /* ================= WORKS ================= */
-  .works { padding: 96px 0; background: var(--cream); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .works { padding: 112px 0; background: var(--cream); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .works-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
   .work-card { display: block; overflow: hidden; border-radius: 14px; }
   .work-thumb { aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; font-family: var(--font-en); font-size: 11px; letter-spacing: .16em; font-weight: 700; }
@@ -379,7 +377,7 @@ const cases = [
   .works-more { margin-top: 34px; text-align: center; }
 
   /* ================= FEATURES ================= */
-  .features { padding: 96px 0; }
+  .features { padding: 112px 0; }
   .feat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 40px; }
   .feat { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 28px 30px; display: flex; gap: 22px; align-items: flex-start; }
   .feat .num { font-family: var(--font-en); font-size: 40px; font-weight: 800; color: var(--amber); line-height: 1; letter-spacing: -.02em; }
@@ -388,7 +386,7 @@ const cases = [
   .feat p :global(b) { color: var(--ink); background: linear-gradient(transparent 66%, var(--yellow-soft) 66%); }
 
   /* ================= FLOW ================= */
-  .flow { padding: 96px 0; background: var(--yellow-pale); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .flow { padding: 112px 0; background: var(--yellow-pale); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .flow-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 48px; position: relative; }
   .flow .rail { position: absolute; top: 30px; left: 9%; right: 9%; height: 2px; background-image: linear-gradient(90deg, var(--ink) 55%, transparent 55%); background-size: 12px 2px; z-index: 1; }
   .step { text-align: center; position: relative; padding: 0 6px; }
@@ -400,7 +398,7 @@ const cases = [
   .flow-note .m { font-size: 15px; font-weight: 900; }
 
   /* ================= CASE ================= */
-  .cases { padding: 96px 0; }
+  .cases { padding: 112px 0; }
   .case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
   .case { padding: 26px 26px 24px; display: block; border-radius: 16px; }
   .case .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
@@ -443,7 +441,7 @@ const cases = [
     .hero .facts { flex-direction: column; }
     .hero .fact { border-right: 0; border-bottom: 1.5px solid var(--line); }
     .hero .fact:last-child { border-bottom: 0; }
-    .problem, .about, .services, .works, .features, .flow, .cases, .cta { padding: 64px 0; }
+    .problem, .about, .services, .works, .features, .flow, .cases, .cta { padding: 76px 0; }
     .hero .wrap { padding: 64px 24px 72px; }
   }
 </style>

@@ -90,7 +90,8 @@ button:focus-visible {
   gap: 24px;
   flex-wrap: wrap;
   border-top: 2px solid var(--ink);
-  padding-top: 22px;
+  padding-top: 36px;   /* 罫線と見出しの間を広めに */
+  margin-bottom: 52px; /* 見出しブロックと本文コンテンツの間を広めに（余白を確保） */
 }
 .sec-head .no { font-family: var(--font-mono); font-size: 12px; letter-spacing: .22em; color: var(--ink2); }
 .sec-head .no b { color: var(--amber-deep); font-weight: 500; }
