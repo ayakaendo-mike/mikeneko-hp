@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>みけねこデザイン｜ワイヤーフレーム</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:#EDEDED;color:#333;line-height:1.7;padding:40px 20px 80px;}
+  .doc{max-width:1200px;margin:0 auto;}
+  .doc-head{margin-bottom:36px;}
+  .doc-head h1{font-size:24px;font-weight:800;letter-spacing:.02em;}
+  .doc-head p{margin-top:8px;font-size:13px;color:#777;}
+  .legend{margin-top:16px;display:flex;gap:18px;flex-wrap:wrap;font-size:11.5px;color:#666;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .legend i{width:14px;height:14px;border-radius:3px;display:inline-block;}
+
+  .page-block{background:#fff;border:1px solid #D5D5D5;border-radius:10px;margin-bottom:34px;overflow:hidden;}
+  .page-ttl{background:#333;color:#fff;padding:12px 20px;font-size:14px;font-weight:700;letter-spacing:.04em;display:flex;justify-content:space-between;align-items:center;}
+  .page-ttl .url{font-family:monospace;font-size:11px;color:#bbb;font-weight:400;}
+  .cols{display:grid;grid-template-columns:1fr 300px;gap:0;}
+  .col-pc{padding:22px;border-right:1px dashed #D5D5D5;}
+  .col-sp{padding:22px;background:#F7F7F7;}
+  .col-label{font-size:10px;letter-spacing:.14em;color:#999;font-weight:700;margin-bottom:14px;text-transform:uppercase;}
+
+  /* wireframe blocks */
+  .wb{background:#F0F0F0;border:1.5px solid #C8C8C8;border-radius:5px;padding:14px;margin-bottom:9px;position:relative;}
+  .wb .tag{font-size:10px;color:#999;font-weight:700;letter-spacing:.06em;position:absolute;top:6px;right:9px;}
+  .wb .h{font-size:13.5px;font-weight:700;color:#555;}
+  .wb .t{font-size:11px;color:#999;margin-top:5px;line-height:1.6;}
+  .wb.hero{background:#E4E4E4;padding:26px 14px;}
+  .wb.dark{background:#DADADA;border-color:#B5B5B5;}
+  .wb.accent{border-color:#F58A1F;border-width:2px;background:#FBF1E6;}
+  .wb.accent .h{color:#C15A0C;}
+
+  .row{display:grid;gap:8px;margin-bottom:9px;}
+  .row.c2{grid-template-columns:1fr 1fr;}
+  .row.c3{grid-template-columns:1fr 1fr 1fr;}
+  .row.c4{grid-template-columns:1fr 1fr 1fr 1fr;}
+  .row .cell{background:#F0F0F0;border:1.5px solid #C8C8C8;border-radius:5px;padding:12px 10px;text-align:center;font-size:10.5px;color:#888;min-height:56px;display:flex;flex-direction:column;justify-content:center;}
+  .row .cell.img{background:repeating-linear-gradient(45deg,#E8E8E8,#E8E8E8 8px,#F0F0F0 8px,#F0F0F0 16px);min-height:64px;}
+  .note{font-size:10.5px;color:#aaa;margin:4px 0 12px;padding-left:2px;}
+
+  .sp-frame{max-width:230px;margin:0 auto;border:6px solid #333;border-radius:22px;padding:10px 8px;background:#fff;}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="doc-head">
+    <h1>みけねこデザイン コーポレートサイト｜ワイヤーフレーム</h1>
+    <p>情報の並び順・優先度を確認するための設計図です（色・装飾は付けていません。ビジュアルは別ファイル <b>top.html</b> を参照）。</p>
+    <div class="legend">
+      <span><i style="background:#F0F0F0;border:1.5px solid #C8C8C8;"></i> コンテンツブロック</span>
+      <span><i style="background:repeating-linear-gradient(45deg,#E8E8E8,#E8E8E8 4px,#F0F0F0 4px,#F0F0F0 8px);"></i> 画像エリア</span>
+      <span><i style="background:#FBF1E6;border:2px solid #F58A1F;"></i> CTA（コンバージョン導線）</span>
+    </div>
+  </div>
+
+  <!-- ===== TOP ===== -->
+  <div class="page-block">
+    <div class="page-ttl"><span>① トップページ</span><span class="url">/</span></div>
+    <div class="cols">
+      <div class="col-pc">
+        <div class="col-label">Desktop</div>
+        <div class="wb dark"><span class="tag">HEADER</span><div class="h">ロゴ（テキスト） ／ ナビ ／ お問い合わせボタン</div></div>
+        <div class="wb hero"><span class="tag">HERO</span><div class="h">キャッチコピー「Webを、事業の“働く資産”へ。」</div><div class="t">サブコピー＋CTAボタン2つ（相談する／サービスを見る）＋装飾</div></div>
+        <div class="wb"><span class="tag">PROBLEM</span><div class="h">お悩み提起</div></div>
+        <div class="row c2"><div class="cell">悩み01</div><div class="cell">悩み02</div></div>
+        <div class="row c2"><div class="cell">悩み03</div><div class="cell">悩み04</div></div>
+        <div class="wb accent"><div class="h">「最初の一歩から伴走します」バナー</div></div>
+        <div class="wb"><span class="tag">ABOUT</span><div class="h">私たちについて</div></div>
+        <div class="row c2"><div class="cell">テキスト（つくって終わりにしない）</div><div class="cell img">サイクル図 MAKE→LAUNCH→OPERATE→IMPROVE</div></div>
+        <div class="wb"><span class="tag">SERVICES</span><div class="h">サービス紹介</div></div>
+        <div class="row c3"><div class="cell">HP制作</div><div class="cell">Web改善</div><div class="cell">AI・DX</div></div>
+        <div class="row c3"><div class="cell">デザイン</div><div class="cell">LINE構築</div><div class="cell">ITサポート</div></div>
+        <div class="wb"><span class="tag">WORKS</span><div class="h">制作実績プレビュー</div></div>
+        <div class="row c4"><div class="cell img">Web</div><div class="cell img">グラフィック</div><div class="cell img">名刺</div><div class="cell img">サポート</div></div>
+        <div class="wb"><span class="tag">STRENGTHS</span><div class="h">選ばれる理由（4つの強み）</div></div>
+        <div class="row c2"><div class="cell">01 伴走型</div><div class="cell">02 ワンストップ</div></div>
+        <div class="row c2"><div class="cell">03 データ改善</div><div class="cell">04 AI活用</div></div>
+        <div class="wb"><span class="tag">FLOW</span><div class="h">ご相談の流れ（5ステップ横並び）</div></div>
+        <div class="wb"><span class="tag">PRICE</span><div class="h">料金の目安（表＋補足サイド）</div></div>
+        <div class="wb accent"><span class="tag">CTA</span><div class="h">「まずは相談から」＋連絡先（info@mikeneko.design）</div></div>
+        <div class="wb dark"><span class="tag">FOOTER</span><div class="h">ナビ ／ 対応エリア ／ コピーライト</div></div>
+      </div>
+      <div class="col-sp">
+        <div class="col-label">Mobile</div>
+        <div class="sp-frame">
+          <div class="wb dark" style="padding:9px;"><div class="h" style="font-size:11px;">ロゴ ／ ☰</div></div>
+          <div class="wb hero" style="padding:16px 9px;"><div class="h" style="font-size:11px;">ヒーロー<br>コピー＋CTA</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">お悩み（縦積み）</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">About＋図</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">サービス（1列）</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">実績（2列）</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">強み（縦積み）</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">流れ（2列）</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">料金</div></div>
+          <div class="wb accent" style="padding:9px;"><div class="h" style="font-size:11px;">CTA</div></div>
+          <div class="wb dark" style="padding:9px;"><div class="h" style="font-size:11px;">フッター</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SERVICE ===== -->
+  <div class="page-block">
+    <div class="page-ttl"><span>② サービス一覧</span><span class="url">/service/</span></div>
+    <div class="cols">
+      <div class="col-pc">
+        <div class="col-label">Desktop</div>
+        <div class="wb dark"><span class="tag">HEADER</span><div class="h">共通ヘッダー</div></div>
+        <div class="wb"><span class="tag">PAGE HEAD</span><div class="h">パンくず ／ ページタイトル「サービス」</div></div>
+        <div class="wb hero"><div class="h">導入文（つくるから育てるまで）</div></div>
+        <div class="note">▼ 各サービスカード。クリックで個別ページ（/service/homepage/ 等）へ</div>
+        <div class="row c3"><div class="cell">HP制作</div><div class="cell">WordPress</div><div class="cell">LP制作</div></div>
+        <div class="row c3"><div class="cell">LINE構築</div><div class="cell">AI導入</div><div class="cell">DX支援</div></div>
+        <div class="row c3"><div class="cell">保守・SEO</div><div class="cell">デザイン制作</div><div class="cell">ITサポート</div></div>
+        <div class="wb accent"><span class="tag">CTA</span><div class="h">相談バナー</div></div>
+        <div class="wb dark"><span class="tag">FOOTER</span><div class="h">共通フッター</div></div>
+      </div>
+      <div class="col-sp">
+        <div class="col-label">Mobile</div>
+        <div class="sp-frame">
+          <div class="wb dark" style="padding:9px;"><div class="h" style="font-size:11px;">ヘッダー</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">タイトル＋導入</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">サービス<br>カード（1列で縦積み）</div></div>
+          <div class="wb accent" style="padding:9px;"><div class="h" style="font-size:11px;">CTA</div></div>
+          <div class="wb dark" style="padding:9px;"><div class="h" style="font-size:11px;">フッター</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== WORKS ===== -->
+  <div class="page-block">
+    <div class="page-ttl"><span>③ 制作実績一覧</span><span class="url">/works/</span></div>
+    <div class="cols">
+      <div class="col-pc">
+        <div class="col-label">Desktop</div>
+        <div class="wb dark"><span class="tag">HEADER</span><div class="h">共通ヘッダー</div></div>
+        <div class="wb"><span class="tag">PAGE HEAD</span><div class="h">パンくず ／ タイトル「制作実績」</div></div>
+        <div class="wb"><span class="tag">FILTER</span><div class="h">カテゴリ絞り込み（Web / グラフィック / 名刺 / サポート事例）</div></div>
+        <div class="note">▼ 実績サムネイル一覧（microCMSから取得）。クリックで /works/[slug]/</div>
+        <div class="row c3"><div class="cell img">実績01</div><div class="cell img">実績02</div><div class="cell img">実績03</div></div>
+        <div class="row c3"><div class="cell img">実績04</div><div class="cell img">実績05</div><div class="cell img">実績06</div></div>
+        <div class="wb accent"><span class="tag">CTA</span><div class="h">「あなたの実績もここに」相談バナー</div></div>
+        <div class="wb dark"><span class="tag">FOOTER</span><div class="h">共通フッター</div></div>
+      </div>
+      <div class="col-sp">
+        <div class="col-label">Mobile</div>
+        <div class="sp-frame">
+          <div class="wb dark" style="padding:9px;"><div class="h" style="font-size:11px;">ヘッダー</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">タイトル</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">絞り込み（横スクロール）</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">実績<br>（1〜2列）</div></div>
+          <div class="wb accent" style="padding:9px;"><div class="h" style="font-size:11px;">CTA</div></div>
+          <div class="wb dark" style="padding:9px;"><div class="h" style="font-size:11px;">フッター</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT ===== -->
+  <div class="page-block">
+    <div class="page-ttl"><span>④ 会社概要（理念含む）</span><span class="url">/about/</span></div>
+    <div class="cols">
+      <div class="col-pc">
+        <div class="col-label">Desktop</div>
+        <div class="wb dark"><span class="tag">HEADER</span><div class="h">共通ヘッダー</div></div>
+        <div class="wb"><span class="tag">PAGE HEAD</span><div class="h">パンくず ／ タイトル「私たちについて」</div></div>
+        <div class="wb hero"><span class="tag">MESSAGE</span><div class="h">代表メッセージ／想い（つくって終わりにしない）</div></div>
+        <div class="row c2"><div class="cell img">写真・イメージ</div><div class="cell">ストーリー本文</div></div>
+        <div class="wb"><span class="tag">CONCEPT</span><div class="h">コンセプト（伴走するデザイン会社／サイクル図）</div></div>
+        <div class="wb"><span class="tag">COMPANY</span><div class="h">会社概要テーブル（商号・代表・所在地・設立・事業内容・加盟団体）</div></div>
+        <div class="wb accent"><span class="tag">CTA</span><div class="h">相談バナー</div></div>
+        <div class="wb dark"><span class="tag">FOOTER</span><div class="h">共通フッター</div></div>
+      </div>
+      <div class="col-sp">
+        <div class="col-label">Mobile</div>
+        <div class="sp-frame">
+          <div class="wb dark" style="padding:9px;"><div class="h" style="font-size:11px;">ヘッダー</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">タイトル</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">メッセージ</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">写真＋本文<br>（縦積み）</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">コンセプト</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">会社概要表</div></div>
+          <div class="wb accent" style="padding:9px;"><div class="h" style="font-size:11px;">CTA</div></div>
+          <div class="wb dark" style="padding:9px;"><div class="h" style="font-size:11px;">フッター</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CONTACT ===== -->
+  <div class="page-block">
+    <div class="page-ttl"><span>⑤ お問い合わせ</span><span class="url">/contact/</span></div>
+    <div class="cols">
+      <div class="col-pc">
+        <div class="col-label">Desktop</div>
+        <div class="wb dark"><span class="tag">HEADER</span><div class="h">共通ヘッダー</div></div>
+        <div class="wb"><span class="tag">PAGE HEAD</span><div class="h">パンくず ／ タイトル「お問い合わせ」＋安心メッセージ（無料・売り込みなし）</div></div>
+        <div class="row c2">
+          <div class="cell" style="min-height:180px;">入力フォーム<br>（お名前／会社名／メール／電話／ご相談内容／個人情報同意チェック／送信ボタン）<br>送信先：info@mikeneko.design</div>
+          <div class="cell" style="min-height:180px;">サイド：連絡先・対応エリア・よくある質問への導線・（将来）LINE公式ボタン</div>
+        </div>
+        <div class="note">▼ 送信後 → /contact/thanks/（完了ページ）へ遷移</div>
+        <div class="wb dark"><span class="tag">FOOTER</span><div class="h">共通フッター</div></div>
+      </div>
+      <div class="col-sp">
+        <div class="col-label">Mobile</div>
+        <div class="sp-frame">
+          <div class="wb dark" style="padding:9px;"><div class="h" style="font-size:11px;">ヘッダー</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">タイトル＋安心文</div></div>
+          <div class="wb" style="padding:9px;min-height:120px;"><div class="h" style="font-size:11px;">フォーム<br>（縦1列・入力しやすく）</div></div>
+          <div class="wb" style="padding:9px;"><div class="h" style="font-size:11px;">連絡先・FAQ導線</div></div>
+          <div class="wb dark" style="padding:9px;"><div class="h" style="font-size:11px;">フッター</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
