@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【C案】みけねこデザイン｜Webを、事業の「働く資産」へ。</title>
+<meta name="description" content="松戸市・鎌ケ谷市を中心に、ホームページ制作・Web改善・ITサポート・デザイン制作まで。つくって終わりにしない、伴走するITパートナーです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#23222C; --ink2:#4E4C58; --muted:#8E8B96;
+    --yellow:#FFC53D; --yellow-soft:#FFE9B8; --yellow-pale:#FFF7E2;
+    --amber:#E89E00; --amber-deep:#C98800;
+    --orange:#F58A1F; --orange-deep:#E86E12;
+    --paper:#FFFEFA; --cream:#FBF7F0; --cream2:#F5EFE4; --line:#E3DED2; --white:#FFFFFF;
+    --maxw:1120px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Noto Sans JP',"Hiragino Kaku Gothic ProN",sans-serif;
+    color:var(--ink);background:var(--paper);line-height:1.8;
+    font-feature-settings:"palt";-webkit-font-smoothing:antialiased;
+  }
+  .en{font-family:'Outfit','Noto Sans JP',sans-serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  /* 先進性: 細いグリッド線の背景 */
+  .gridbg{
+    background-image:
+      linear-gradient(rgba(35,34,44,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(35,34,44,.045) 1px, transparent 1px);
+    background-size:56px 56px;
+  }
+
+  /* ---- 押せる要素の共通トンマナ ----
+     通常時: グレー線のカード / ホバー時: 黒枠＋オフセットシャドウ＋少し浮く */
+  .pressable{
+    background:#fff;border:1.5px solid var(--line);border-radius:12px;
+    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .pressable:hover{
+    transform:translateY(-3px);border-color:var(--ink);
+    box-shadow:0 5px 0 rgba(35,34,44,.9);
+  }
+
+  /* ---- buttons ---- */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:15px;
+    padding:15px 30px;letter-spacing:.02em;
+  }
+  .btn .ar{font-family:'Outfit';font-weight:600;transition:transform .15s;}
+  .btn:hover .ar{transform:translateX(3px);}
+  .btn-primary{background:var(--yellow);border-color:var(--yellow);}
+  .btn-primary:hover{border-color:var(--ink);}
+
+  /* ---- section head ---- */
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:2px solid var(--ink);padding-top:22px;}
+  .sec-head .no{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.22em;color:var(--ink2);}
+  .sec-head .no b{color:var(--amber-deep);font-weight:500;}
+  .sec-title{font-size:clamp(26px,4.4vw,40px);font-weight:900;letter-spacing:.02em;line-height:1.4;margin-top:10px;}
+  .sec-sub{font-size:14px;color:var(--ink2);line-height:2;max-width:420px;}
+  .hl{background:linear-gradient(transparent 64%,var(--yellow) 64%);}
+
+  .chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--ink);background:var(--yellow-soft);border-radius:8px;padding:6px 14px;letter-spacing:.04em;}
+
+  /* ================= HEADER ================= */
+  header.site{
+    position:sticky;top:0;z-index:50;background:rgba(255,254,250,.9);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px;}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand .mark{width:34px;height:34px;border-radius:9px;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;box-shadow:0 3px 0 rgba(35,34,44,.9);}
+  .brand .txt{display:flex;flex-direction:column;line-height:1;}
+  .brand .lname{font-weight:900;font-size:18px;letter-spacing:.06em;}
+  .brand .len{font-family:'Outfit';font-size:8.5px;letter-spacing:.3em;color:var(--muted);margin-top:3px;}
+  .nav-menu{display:flex;align-items:center;gap:26px;}
+  .nav-menu a.link{font-size:14px;font-weight:500;color:var(--ink2);transition:color .15s;position:relative;}
+  .nav-menu a.link:hover{color:var(--ink);}
+  .nav-menu a.link:hover::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:3px;background:var(--yellow);border-radius:2px;}
+  .nav-cta{padding:11px 22px;font-size:13.5px;}
+  .menu-btn{display:none;background:none;border:0;cursor:pointer;font-size:26px;color:var(--ink);}
+
+  /* ================= HERO ================= */
+  .hero{overflow:hidden;border-bottom:1px solid var(--line);}
+  .hero .wrap{position:relative;padding:96px 24px 110px;}
+  .hero .sun{
+    position:absolute;right:-80px;top:60px;width:420px;height:420px;border-radius:50%;
+    background:radial-gradient(circle at 38% 34%, #FFE9B8 0%, var(--yellow) 55%, #F5A623 100%);
+    z-index:0;
+  }
+  .hero .sun::after{
+    content:"";position:absolute;inset:-34px;border-radius:50%;
+    border:1.5px dashed rgba(35,34,44,.22);
+  }
+  .hero .orbit{position:absolute;right:270px;top:410px;width:74px;height:74px;border-radius:50%;background:var(--white);border:1.5px solid var(--ink);box-shadow:0 4px 0 rgba(35,34,44,.9);display:flex;align-items:center;justify-content:center;font-family:'Outfit';font-size:10px;letter-spacing:.1em;font-weight:700;z-index:1;}
+  .hero-inner{position:relative;z-index:2;max-width:660px;}
+  .hero .kicker{display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.2em;color:var(--ink2);margin-bottom:24px;}
+  .hero .kicker::before{content:"";width:26px;height:2px;background:var(--ink);}
+  .hero h1{font-size:clamp(36px,6.6vw,64px);font-weight:900;line-height:1.38;letter-spacing:.01em;}
+  .hero h1 .mk{background:linear-gradient(transparent 62%,var(--yellow) 62%);}
+  .hero .lead{margin-top:26px;font-size:clamp(15px,2vw,17px);color:var(--ink2);font-weight:500;line-height:2.1;}
+  .hero .actions{margin-top:38px;display:flex;flex-wrap:wrap;gap:14px;}
+  .hero .facts{margin-top:52px;display:flex;gap:0;border:1.5px solid var(--ink);border-radius:14px;overflow:hidden;background:#fff;max-width:560px;box-shadow:0 5px 0 rgba(35,34,44,.9);}
+  .hero .fact{flex:1;padding:16px 18px;border-right:1.5px solid var(--line);}
+  .hero .fact:last-child{border-right:0;}
+  .hero .fact .fl{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.16em;color:var(--muted);}
+  .hero .fact .fv{font-size:14.5px;font-weight:900;margin-top:4px;line-height:1.5;}
+  .hero .fact .fv small{font-size:10.5px;color:var(--ink2);font-weight:700;}
+
+  /* ================= PROBLEM ================= */
+  .problem{padding:96px 0;}
+  .prob-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px;}
+  .prob-card{background:#fff;border:1.5px solid var(--line);border-left:5px solid var(--yellow);border-radius:12px;padding:24px 26px;}
+  .prob-card .qt{font-size:16px;font-weight:700;line-height:1.75;}
+  .prob-card .qs{margin-top:10px;font-size:12.5px;color:var(--muted);}
+  .prob-band{
+    margin-top:40px;background:linear-gradient(90deg,var(--yellow-soft),var(--yellow));
+    border:1.5px solid var(--ink);border-radius:16px;padding:32px 40px;
+    display:flex;align-items:center;justify-content:space-between;gap:26px;
+    box-shadow:0 6px 0 rgba(35,34,44,.9);
+  }
+  .prob-band .big{font-size:clamp(19px,2.6vw,25px);font-weight:900;line-height:1.65;}
+  .prob-band .small{font-size:13px;line-height:2;color:var(--ink2);font-weight:500;min-width:230px;max-width:330px;}
+
+  /* ================= ABOUT ================= */
+  .about{padding:96px 0;background:var(--yellow-pale);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .about-grid{display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;margin-top:40px;}
+  .about-copy p{font-size:15px;line-height:2.25;color:var(--ink2);margin-bottom:18px;font-weight:500;}
+  .about-copy p b{color:var(--ink);}
+  .about-copy p .mk{background:linear-gradient(transparent 66%,var(--yellow) 66%);color:var(--ink);font-weight:700;}
+  .cycle{position:relative;width:100%;max-width:420px;aspect-ratio:1;margin:0 auto;}
+  .cycle .ring{position:absolute;inset:9%;border:1.5px dashed rgba(35,34,44,.3);border-radius:50%;}
+  .cycle .node{position:absolute;transform:translate(-50%,-50%);background:#fff;border:1.5px solid var(--ink);border-radius:12px;font-size:14px;font-weight:700;padding:9px 20px;white-space:nowrap;box-shadow:0 4px 0 rgba(35,34,44,.9);}
+  .cycle .node small{display:block;font-family:'Outfit';font-size:8.5px;letter-spacing:.2em;color:var(--muted);font-weight:600;text-align:center;}
+  .cycle .n-top{left:50%;top:5%;}
+  .cycle .n-right{left:95%;top:50%;}
+  .cycle .n-bottom{left:50%;top:95%;}
+  .cycle .n-left{left:5%;top:50%;}
+  .cycle .core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 34% 30%,#FFE9B8,var(--yellow) 68%);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1.5px solid var(--ink);box-shadow:0 6px 0 rgba(35,34,44,.9);}
+  .cycle .core .t1{font-size:11px;font-weight:700;}
+  .cycle .core .t2{font-size:clamp(16px,2.4vw,21px);font-weight:900;letter-spacing:.03em;}
+
+  /* ================= SERVICES ================= */
+  .services{padding:96px 0;}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;}
+  .svc{padding:26px 26px;display:block;border-radius:14px;}
+  .svc .no{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted);}
+  .svc .ic{width:44px;height:44px;border-radius:11px;background:var(--yellow-soft);display:flex;align-items:center;justify-content:center;margin:14px 0;font-size:19px;}
+  .svc h3{font-size:16.5px;font-weight:900;letter-spacing:.02em;}
+  .svc h3 small{font-family:'Outfit';display:block;font-size:9px;letter-spacing:.22em;color:var(--muted);font-weight:600;margin-top:4px;}
+  .svc p{margin-top:10px;font-size:12.5px;color:var(--ink2);line-height:1.95;font-weight:500;}
+  .onestop{
+    margin-top:24px;border-radius:14px;background:var(--cream);border:1.5px solid var(--line);
+    padding:24px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+  }
+  .onestop .t{font-size:16px;font-weight:900;white-space:nowrap;}
+  .onestop .t .y{background:linear-gradient(transparent 62%,var(--yellow) 62%);}
+  .onestop .d{font-size:13px;color:var(--ink2);line-height:1.9;font-weight:500;flex:1;min-width:260px;}
+
+  /* ================= WORKS ================= */
+  .works{padding:96px 0;background:var(--cream);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .works-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;}
+  .work-card{display:block;overflow:hidden;border-radius:14px;}
+  .work-thumb{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-family:'Outfit';font-size:11px;letter-spacing:.16em;font-weight:700;}
+  .t-web{background:linear-gradient(135deg,var(--yellow),#F5A623);color:var(--ink);}
+  .t-graphic{background:linear-gradient(135deg,#FFE9B8,var(--yellow));color:var(--ink);}
+  .t-meishi{background:linear-gradient(135deg,#F5A623,var(--amber));color:#fff;}
+  .t-support{background:linear-gradient(135deg,#FDF3DC,#FFE9B8);color:var(--ink2);}
+  .work-body{padding:14px 16px 18px;}
+  .work-body .cat{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:500;color:var(--amber-deep);letter-spacing:.08em;}
+  .work-body .wt{margin-top:6px;font-size:13.5px;font-weight:700;line-height:1.6;}
+  .works-more{margin-top:34px;text-align:center;}
+
+  /* ================= FEATURES（特徴・A案の太い数字スタイル） ================= */
+  .features{padding:96px 0;}
+  .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:40px;}
+  .feat{
+    background:#fff;border:1px solid var(--line);border-radius:18px;
+    padding:28px 30px;display:flex;gap:22px;align-items:flex-start;
+  }
+  .feat .num{font-family:'Outfit';font-size:40px;font-weight:800;color:var(--amber);line-height:1;letter-spacing:-.02em;}
+  .feat h3{font-size:18px;font-weight:900;letter-spacing:.02em;margin-bottom:8px;}
+  .feat p{font-size:13px;line-height:2.05;color:var(--ink2);font-weight:500;}
+  .feat p b{color:var(--ink);background:linear-gradient(transparent 66%,var(--yellow-soft) 66%);}
+
+  /* ================= FLOW（A案の丸数字をイエロー系で） ================= */
+  .flow{padding:96px 0;background:var(--yellow-pale);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .flow-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:48px;position:relative;}
+  .flow .rail{position:absolute;top:30px;left:9%;right:9%;height:2px;background-image:linear-gradient(90deg,var(--ink) 55%,transparent 55%);background-size:12px 2px;z-index:1;}
+  .step{text-align:center;position:relative;padding:0 6px;}
+  .step .dot{
+    width:60px;height:60px;border-radius:50%;margin:0 auto;background:#fff;
+    border:1.8px solid var(--ink);display:flex;align-items:center;justify-content:center;
+    font-family:'Outfit';font-size:18px;font-weight:700;position:relative;z-index:2;
+    box-shadow:0 4px 0 rgba(35,34,44,.88);
+  }
+  .step.hl-step .dot{background:linear-gradient(135deg,#FFE9B8,var(--yellow));border-color:var(--ink);color:var(--ink);}
+  .step .st{margin-top:16px;font-size:15px;font-weight:900;}
+  .step .sd{margin-top:8px;font-size:11.5px;color:var(--ink2);line-height:1.85;font-weight:500;}
+  .flow-note{
+    margin-top:44px;background:#fff;border:1.5px solid var(--line);border-radius:14px;
+    padding:20px 30px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;
+  }
+  .flow-note .m{font-size:15px;font-weight:900;}
+
+  /* ================= CASE（過去の事例：課題→支援→成果） ================= */
+  .cases{padding:96px 0;}
+  .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;}
+  .case{padding:26px 26px 24px;display:block;border-radius:16px;}
+  .case .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+  .case .tag{font-size:10.5px;font-weight:700;color:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:3px 11px;letter-spacing:.03em;background:#fff;}
+  .case h3{font-size:16px;font-weight:900;line-height:1.65;letter-spacing:.02em;}
+  .case dl{margin-top:16px;}
+  .case dl div{display:flex;gap:12px;padding:10px 0;border-top:1px dashed var(--line);}
+  .case dt{
+    font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;
+    color:var(--amber-deep);flex-shrink:0;width:52px;padding-top:4px;
+  }
+  .case dd{font-size:12.5px;color:var(--ink2);line-height:1.85;font-weight:500;}
+  .case dd b{color:var(--ink);}
+  .case .more{margin-top:14px;font-size:12px;font-weight:700;color:var(--amber-deep);display:inline-flex;align-items:center;gap:6px;}
+  .cases-note{margin-top:26px;text-align:center;font-size:12px;color:var(--muted);}
+  .cases-more{margin-top:18px;text-align:center;}
+
+  /* ================= CTA ================= */
+  .cta{padding:100px 0;background:linear-gradient(180deg,var(--yellow-pale),var(--yellow-soft));border-top:1px solid var(--line);text-align:center;}
+  .cta .k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.26em;color:var(--amber-deep);}
+  .cta h2{margin-top:16px;font-size:clamp(28px,4.6vw,44px);font-weight:900;letter-spacing:.02em;line-height:1.55;}
+  .cta .lead{margin-top:18px;font-size:15px;color:var(--ink2);line-height:2.1;font-weight:500;}
+  .cta .chips{display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap;}
+  .cta .chip{background:#fff;}
+  .cta .actions{margin-top:36px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .contact-box{
+    margin-top:44px;background:#fff;border:1.5px solid var(--ink);border-radius:16px;
+    padding:26px 42px;display:inline-flex;gap:44px;flex-wrap:wrap;justify-content:center;
+    box-shadow:0 6px 0 rgba(35,34,44,.9);
+  }
+  .contact-box .cl{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--amber-deep);display:block;margin-bottom:6px;}
+  .contact-box .cv{font-size:15px;font-weight:700;}
+
+  /* ================= FOOTER（黒面を使わず明るく・罫線で締める） ================= */
+  footer.site{background:var(--cream2);border-top:2px solid var(--ink);color:var(--ink);padding:60px 0 32px;}
+  .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+  .foot-brand .row{display:flex;align-items:center;gap:12px;}
+  .foot-brand .mark{width:34px;height:34px;border-radius:9px;background:var(--yellow);color:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;box-shadow:0 3px 0 rgba(35,34,44,.9);}
+  .foot-brand .lname{font-weight:900;font-size:19px;letter-spacing:.06em;}
+  .foot-brand .len{font-family:'Outfit';font-size:8.5px;letter-spacing:.3em;color:var(--muted);margin-top:3px;}
+  .foot-brand p{margin-top:18px;font-size:12.5px;color:var(--ink2);line-height:1.95;max-width:320px;}
+  .foot-nav{display:flex;gap:56px;flex-wrap:wrap;}
+  .foot-col h4{font-size:10px;letter-spacing:.16em;color:var(--amber-deep);font-family:'IBM Plex Mono',monospace;margin-bottom:14px;}
+  .foot-col a{display:block;font-size:13px;color:var(--ink2);margin-bottom:11px;transition:color .15s;}
+  .foot-col a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--yellow);text-decoration-thickness:3px;text-underline-offset:4px;}
+  .foot-area{margin-top:42px;padding-top:22px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);}
+  .foot-copy{margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--muted);}
+
+  .proto{background:var(--ink);color:#fff;text-align:center;font-size:12px;padding:8px 16px;letter-spacing:.03em;}
+  .proto b{color:var(--yellow);}
+
+  /* ================= RESPONSIVE ================= */
+  @media(max-width:900px){
+    .about-grid{grid-template-columns:1fr;gap:44px;}
+    .svc-grid{grid-template-columns:repeat(2,1fr);}
+    .works-grid{grid-template-columns:repeat(2,1fr);}
+    .case-grid{grid-template-columns:1fr;}
+    .prob-band{flex-direction:column;align-items:flex-start;}
+    .hero .sun{width:300px;height:300px;right:-100px;top:30px;}
+    .hero .orbit{display:none;}
+    .flow .rail{display:none;}
+  }
+  @media(max-width:680px){
+    .nav-menu{display:none;}
+    .menu-btn{display:block;}
+    .prob-grid{grid-template-columns:1fr;}
+    .svc-grid{grid-template-columns:1fr;}
+    .feat-grid{grid-template-columns:1fr;}
+    .flow-steps{grid-template-columns:1fr 1fr;gap:24px 12px;}
+    .hero .facts{flex-direction:column;}
+    .hero .fact{border-right:0;border-bottom:1.5px solid var(--line);}
+    .hero .fact:last-child{border-bottom:0;}
+    .contact-box{gap:24px;padding:22px 26px;}
+    .problem,.about,.services,.works,.features,.flow,.cases,.cta{padding:64px 0;}
+    .hero .wrap{padding:64px 24px 72px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="proto">これは<b>C案（フィードバック反映版）</b>です — イエローベース／黒は線と影のみ／料金セクションは事例に差し替え</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="#">
+      <span class="mark">み</span>
+      <span class="txt">
+        <span class="lname">みけねこデザイン</span>
+        <span class="len">MIKENEKO DESIGN</span>
+      </span>
+    </a>
+    <nav class="nav-menu" aria-label="グローバルナビゲーション">
+      <a class="link" href="#services">サービス</a>
+      <a class="link" href="#works">制作実績</a>
+      <a class="link" href="#about">私たちについて</a>
+      <a class="link" href="#">料金</a>
+      <a class="link" href="#flow">ご相談の流れ</a>
+      <a class="btn btn-primary pressable nav-cta" href="#contact">お問い合わせ</a>
+    </nav>
+    <button class="menu-btn" aria-label="メニューを開く">☰</button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero gridbg">
+  <div class="wrap">
+    <div class="sun" aria-hidden="true"></div>
+    <div class="orbit" aria-hidden="true">WEB &amp; IT</div>
+    <div class="hero-inner">
+      <span class="kicker">MIKENEKO DESIGN — WEB &amp; IT PARTNER</span>
+      <h1>Webを、事業の<br><span class="mk">「働く資産」</span>へ。</h1>
+      <p class="lead">つくって終わりのホームページではなく、集客・採用・信頼につながるWebを。<br>中小企業の「Web担当」として伴走します。</p>
+      <div class="actions">
+        <a class="btn btn-primary pressable" href="#contact">無料で相談してみる<span class="ar">→</span></a>
+        <a class="btn pressable" href="#services">サービスを見る</a>
+      </div>
+      <div class="facts" role="list">
+        <div class="fact" role="listitem"><span class="fl">STYLE</span><div class="fv">伴走型<br><small>社外のWeb担当</small></div></div>
+        <div class="fact" role="listitem"><span class="fl">SCOPE</span><div class="fv">ワンストップ<br><small>Web・紙・IT・AI</small></div></div>
+        <div class="fact" role="listitem"><span class="fl">AREA</span><div class="fv">千葉県<br><small>松戸・鎌ケ谷ほか</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 PROBLEM ============ -->
+<section class="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="no"><b>01</b> / PROBLEM</span>
+        <h2 class="sec-title">こんなお悩み、<span class="hl">ありませんか？</span></h2>
+      </div>
+      <p class="sec-sub">Webのこと、ITのこと。「誰に相談すればいいか分からない」が、いちばん多いお悩みです。</p>
+    </div>
+    <div class="prob-grid">
+      <div class="prob-card"><div class="qt">ホームページがまだ無い。名刺と紹介だけが頼りになっている</div><div class="qs">── 信頼の入口がWeb上にない状態です</div></div>
+      <div class="prob-card"><div class="qt">発信したいのに、SNS頼みで情報が流れて消えていく</div><div class="qs">── ストックされない情報は、資産になりません</div></div>
+      <div class="prob-card"><div class="qt">社内にWebやITに詳しい人がいない。相談相手がほしい</div><div class="qs">── 兼任担当者まかせでは限界があります</div></div>
+      <div class="prob-card"><div class="qt">興味はあるけれど、何から始めればいいか正直わからない</div><div class="qs">── 実は、いちばん多いご相談です</div></div>
+    </div>
+    <div class="prob-band">
+      <div class="big">その「最初の一歩」から、<br>みけねこデザインが伴走します。</div>
+      <div class="small">まだ何も決まっていなくて大丈夫です。現状のお話を聞かせていただくところから、一緒に整理します。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="no"><b>02</b> / ABOUT US</span>
+        <h2 class="sec-title">「つくって、終わり」に<span class="hl">しない。</span></h2>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div class="about-copy">
+        <p>ホームページは、公開してからが本番です。更新・改善・運用を重ねることで、集客や採用、お問い合わせにつながる<b>「会社の資産」</b>に育っていきます。</p>
+        <p>みけねこデザインは、Webサイトの制作にとどまらず、IT・AI・デザインまでまとめて相談できる<span class="mk">事業成長のパートナー</span>です。</p>
+        <span class="chip">御社の「社外Web担当」であり、ITパートナーです</span>
+      </div>
+      <div class="cycle" aria-label="制作・公開・運用・改善のサイクル図">
+        <div class="ring" aria-hidden="true"></div>
+        <div class="node n-top"><small>MAKE</small>制作</div>
+        <div class="node n-right"><small>LAUNCH</small>公開</div>
+        <div class="node n-bottom"><small>OPERATE</small>運用</div>
+        <div class="node n-left"><small>IMPROVE</small>改善</div>
+        <div class="core"><span class="t1">成果につながる</span><span class="t2">働く資産</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 SERVICES ============ -->
+<section class="services gridbg" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="no"><b>03</b> / SERVICES</span>
+        <h2 class="sec-title">サービス紹介</h2>
+      </div>
+      <p class="sec-sub">「つくる」から「育てる」まで。Webとデザインにまつわることを、まとめてご相談いただけます。</p>
+    </div>
+    <div class="svc-grid">
+      <a class="svc pressable" href="#"><span class="no">S-01</span><div class="ic">▤</div><h3>ホームページ制作<small>WEB PRODUCTION</small></h3><p>コーポレートサイト / LP / WordPress / Studio。目的に合わせて設計します。</p></a>
+      <a class="svc pressable" href="#"><span class="no">S-02</span><div class="ic">↻</div><h3>Web改善・リニューアル<small>IMPROVEMENT</small></h3><p>サイトリニューアル / 保守・更新 / SEO改善 / 表示速度改善。</p></a>
+      <a class="svc pressable" href="#"><span class="no">S-03</span><div class="ic">✦</div><h3>AI導入・DX支援<small>AI &amp; DX</small></h3><p>業務効率化・AI活用のご提案。お困りごとに合わせて伴走します。</p></a>
+      <a class="svc pressable" href="#"><span class="no">S-04</span><div class="ic">✎</div><h3>デザイン制作<small>GRAPHIC DESIGN</small></h3><p>名刺 / チラシ / パンフレット / ロゴ / バナー。紙もお任せください。</p></a>
+      <a class="svc pressable" href="#"><span class="no">S-05</span><div class="ic">✆</div><h3>LINE公式構築<small>LINE</small></h3><p>LINE公式アカウントの構築・運用で、集客とリピートの導線をつくります。</p></a>
+      <a class="svc pressable" href="#"><span class="no">S-06</span><div class="ic">⚙</div><h3>ITサポート<small>IT SUPPORT</small></h3><p>PC・ツールの困りごと / クラウド導入 / 社内IT整備をサポート。</p></a>
+    </div>
+    <div class="onestop">
+      <span class="t">窓口は、<span class="y">ひとつ。</span></span>
+      <span class="d">Webも、紙も、ITまわりも。「これは誰に頼めばいい？」と悩む時間をなくし、まとめてお引き受けします。</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 WORKS ============ -->
+<section class="works" id="works">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="no"><b>04</b> / WORKS</span>
+        <h2 class="sec-title">制作実績</h2>
+      </div>
+      <p class="sec-sub">Webサイトから名刺・チラシまで。「手に取るデザイン」もお任せください。</p>
+    </div>
+    <div class="works-grid">
+      <a class="work-card pressable" href="#"><div class="work-thumb t-web">WEB SITE</div><div class="work-body"><span class="cat">WEB</span><div class="wt">コーポレートサイト制作</div></div></a>
+      <a class="work-card pressable" href="#"><div class="work-thumb t-graphic">GRAPHIC</div><div class="work-body"><span class="cat">GRAPHIC</span><div class="wt">チラシ・記念誌デザイン</div></div></a>
+      <a class="work-card pressable" href="#"><div class="work-thumb t-meishi">CARD</div><div class="work-body"><span class="cat">MEISHI</span><div class="wt">両面名刺デザイン</div></div></a>
+      <a class="work-card pressable" href="#"><div class="work-thumb t-support">SUPPORT</div><div class="work-body"><span class="cat">SUPPORT</span><div class="wt">IT・運用サポート</div></div></a>
+    </div>
+    <div class="works-more"><a class="btn pressable" href="#">実績をもっと見る<span class="ar">→</span></a></div>
+  </div>
+</section>
+
+<!-- ============ 05 FEATURES ============ -->
+<section class="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="no"><b>05</b> / FEATURES</span>
+        <h2 class="sec-title">みけねこデザインの<span class="hl">特徴</span></h2>
+      </div>
+      <p class="sec-sub">大手の「分業」でも、格安サービスの「作りっぱなし」でもない、ちょうどいい距離感で。</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat"><div class="num">01</div><div><h3>伴走型サポート</h3><p>公開して終わりではなく、<b>「社外のWeb担当」</b>として運用まで並走。小さな更新のご相談も気軽にどうぞ。</p></div></div>
+      <div class="feat"><div class="num">02</div><div><h3>ワンストップ対応</h3><p>Webも、名刺・チラシも、ITの困りごとも<b>窓口ひとつ</b>。デザインの一貫性も保てます。</p></div></div>
+      <div class="feat"><div class="num">03</div><div><h3>数字にもとづく改善提案</h3><p>アクセス解析をもとに、感覚ではなく<b>データで判断</b>。公開後も「次の一手」をご提案します。</p></div></div>
+      <div class="feat"><div class="num">04</div><div><h3>AIを味方にする制作</h3><p>最新のAIを制作・運用に活用し、<b>スピードと品質を両立</b>。業務効率化のご相談も歓迎です。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 FLOW ============ -->
+<section class="flow" id="flow">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="no"><b>06</b> / FLOW</span>
+        <h2 class="sec-title">ご相談の流れ</h2>
+      </div>
+      <p class="sec-sub">まずはお気軽にご相談ください。目的とご予算に合わせて、最適なプランをご提案します。</p>
+    </div>
+    <div class="flow-steps">
+      <div class="rail" aria-hidden="true"></div>
+      <div class="step"><div class="dot">1</div><div class="st">ヒアリング</div><div class="sd">現状の課題とゴールを<br>お聞きします（無料）</div></div>
+      <div class="step"><div class="dot">2</div><div class="st">ご提案・お見積り</div><div class="sd">目的とご予算に合わせた<br>プランと概算をご提示</div></div>
+      <div class="step"><div class="dot">3</div><div class="st">制作</div><div class="sd">進捗を共有しながら<br>丁寧に形にします</div></div>
+      <div class="step"><div class="dot">4</div><div class="st">公開</div><div class="sd">ドメイン・サーバーなど<br>公開作業までお任せ</div></div>
+      <div class="step hl-step"><div class="dot">5</div><div class="st">運用・改善</div><div class="sd">公開後こそ本番。<br>育てる運用を継続サポート</div></div>
+    </div>
+    <div class="flow-note">
+      <span class="m">ご相談・お見積りは無料です。</span>
+      <span class="chip">オンライン対応OK</span>
+      <span class="chip">相談だけでもOK</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 CASE ============ -->
+<section class="cases gridbg">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="no"><b>07</b> / CASE</span>
+        <h2 class="sec-title">過去の<span class="hl">事例</span></h2>
+      </div>
+      <p class="sec-sub">「何を相談して、何が変わったのか」。実際のご支援の流れをご紹介します。</p>
+    </div>
+    <div class="case-grid">
+      <a class="case pressable" href="#">
+        <div class="tags"><span class="tag">建設業</span><span class="tag">コーポレートサイト</span></div>
+        <h3>採用につながる、<br>会社の「顔」づくり</h3>
+        <dl>
+          <div><dt>BEFORE</dt><dd>ホームページが無く、若手採用や新規の信頼獲得に苦戦</dd></div>
+          <div><dt>支援</dt><dd>映像を活かしたコーポレートサイトを新規制作</dd></div>
+          <div><dt>AFTER</dt><dd><b>企業の勢いと想いが伝わる採用の入口</b>に</dd></div>
+        </dl>
+        <span class="more">詳しく見る →</span>
+      </a>
+      <a class="case pressable" href="#">
+        <div class="tags"><span class="tag">新規事業</span><span class="tag">ブランディング一式</span></div>
+        <h3>ゼロからの立ち上げを、<br>まるごと支援</h3>
+        <dl>
+          <div><dt>BEFORE</dt><dd>新規事業の立ち上げでロゴもWebも何も無い状態</dd></div>
+          <div><dt>支援</dt><dd>ロゴ・名刺・Webサイトをトータルで制作</dd></div>
+          <div><dt>AFTER</dt><dd><b>世界観が一貫したブランド</b>でスタートダッシュ</dd></div>
+        </dl>
+        <span class="more">詳しく見る →</span>
+      </a>
+      <a class="case pressable" href="#">
+        <div class="tags"><span class="tag">地域団体</span><span class="tag">紙媒体・IT相談</span></div>
+        <h3>「誰に頼めばいい？」を<br>ひとつの窓口に</h3>
+        <dl>
+          <div><dt>BEFORE</dt><dd>チラシ・記念誌などの制作先がバラバラで負担大</dd></div>
+          <div><dt>支援</dt><dd>デザイン制作からITの困りごとまで一括対応</dd></div>
+          <div><dt>AFTER</dt><dd><b>相談先を一本化</b>して運営の手間を削減</dd></div>
+        </dl>
+        <span class="more">詳しく見る →</span>
+      </a>
+    </div>
+    <div class="cases-note">※ 掲載内容は実際のご支援をもとにした一例です。詳しい実績は制作実績ページをご覧ください。</div>
+    <div class="cases-more"><a class="btn pressable" href="#">料金の目安を見る<span class="ar">→</span></a></div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <span class="k">CONTACT</span>
+    <h2>まずは、「相談」から<br>始めませんか。</h2>
+    <p class="lead">売り込みはいたしません。現状のお話を伺い、いま本当に必要なことを<br>一緒に整理するところから。</p>
+    <div class="chips">
+      <span class="chip">ご相談・お見積り 無料</span>
+      <span class="chip">オンライン対応可</span>
+      <span class="chip">その場で契約を迫りません</span>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary pressable" href="mailto:info@mikeneko.design">メールで相談する<span class="ar">→</span></a>
+      <a class="btn pressable" href="#">お問い合わせフォーム</a>
+    </div>
+    <div class="contact-box">
+      <div><span class="cl">COMPANY</span><span class="cv">みけねこデザイン</span></div>
+      <div><span class="cl">MAIL</span><span class="cv">info@mikeneko.design</span></div>
+      <div><span class="cl">AREA</span><span class="cv">松戸・鎌ケ谷・船橋・市川ほか</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="row">
+          <span class="mark">み</span>
+          <div>
+            <div class="lname">みけねこデザイン</div>
+            <div class="len">MIKENEKO DESIGN</div>
+          </div>
+        </div>
+        <p>Webを、事業の「働く資産」へ。中小企業の社外Web担当として、制作から運用・改善まで伴走します。</p>
+      </div>
+      <nav class="foot-nav" aria-label="フッターナビゲーション">
+        <div class="foot-col">
+          <h4>SERVICE</h4>
+          <a href="#">ホームページ制作</a>
+          <a href="#">Web改善・リニューアル</a>
+          <a href="#">デザイン制作</a>
+          <a href="#">AI・DX支援</a>
+          <a href="#">ITサポート</a>
+        </div>
+        <div class="foot-col">
+          <h4>COMPANY</h4>
+          <a href="#">私たちについて</a>
+          <a href="#">制作実績</a>
+          <a href="#">料金</a>
+          <a href="#">ご相談の流れ</a>
+          <a href="#">よくある質問</a>
+        </div>
+        <div class="foot-col">
+          <h4>CONTACT</h4>
+          <a href="mailto:info@mikeneko.design">info@mikeneko.design</a>
+          <a href="#">お問い合わせフォーム</a>
+          <a href="#">プライバシーポリシー</a>
+        </div>
+      </nav>
+    </div>
+    <div class="foot-area">対応エリア：松戸市・鎌ケ谷市・船橋市・市川市を中心に千葉県全域（オンライン対応で全国可）</div>
+    <div class="foot-copy">© 2026 MIKENEKO DESIGN — WEB &amp; IT PARTNER</div>
+  </div>
+</footer>
+
+</body>
+</html>
