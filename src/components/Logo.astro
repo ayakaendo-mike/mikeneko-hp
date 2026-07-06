@@ -1,0 +1,42 @@
+---
+/**
+ * ロゴ（差し替え可能なワードマーク）
+ * docs/08-design-guide.md 決定: 正式ロゴ確定まではテキストワードマークで代替。
+ * 正式ロゴが決まったら、この1ファイルの中身を画像/SVGに差し替えるだけで
+ * ヘッダー・フッター等すべてに反映される設計。
+ */
+interface Props {
+  /** フッター等で色を反転したい場合などのバリアント */
+  variant?: 'default';
+  /** 見出しとして扱うか（トップ以外では h1 にしない） */
+  as?: 'span' | 'div';
+}
+const { as = 'div' } = Astro.props;
+const Tag = as;
+---
+
+<a class="logo" href="/" aria-label="みけねこデザイン ホームへ">
+  <span class="mark" aria-hidden="true">み</span>
+  <Tag class="txt">
+    <span class="lname">みけねこデザイン</span>
+    <span class="len">MIKENEKO DESIGN</span>
+  </Tag>
+</a>
+
+<style>
+  .logo { display: inline-flex; align-items: center; gap: 12px; }
+  .mark {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: var(--yellow);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 17px; color: var(--ink);
+    box-shadow: 0 3px 0 rgba(35, 34, 44, .9);
+    flex-shrink: 0;
+  }
+  .txt { display: flex; flex-direction: column; line-height: 1; }
+  .lname { font-weight: 900; font-size: 18px; letter-spacing: .06em; }
+  .len {
+    font-family: var(--font-en);
+    font-size: 8.5px; letter-spacing: .3em; color: var(--muted); margin-top: 3px;
+  }
+</style>

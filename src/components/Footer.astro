@@ -1,0 +1,66 @@
+---
+import { NAV_ITEMS, FOOTER_SERVICES, SITE } from '../config/site.ts';
+const year = new Date().getFullYear();
+---
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="row">
+          <span class="mark" aria-hidden="true">み</span>
+          <div>
+            <div class="lname">{SITE.name}</div>
+            <div class="len">{SITE.nameEn}</div>
+          </div>
+        </div>
+        <p>Webを、事業の「働く資産」へ。中小企業の社外Web担当として、制作から運用・改善まで伴走します。</p>
+      </div>
+      <nav class="foot-nav" aria-label="フッターナビゲーション">
+        <div class="foot-col">
+          <h4>SERVICE</h4>
+          {FOOTER_SERVICES.map((s) => <a href={s.href}>{s.label}</a>)}
+        </div>
+        <div class="foot-col">
+          <h4>COMPANY</h4>
+          {NAV_ITEMS.map((n) => <a href={n.href}>{n.label}</a>)}
+          <a href="/faq/">よくある質問</a>
+        </div>
+        <div class="foot-col">
+          <h4>CONTACT</h4>
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <a href="/contact/">お問い合わせフォーム</a>
+          <a href="/privacy/">プライバシーポリシー</a>
+        </div>
+      </nav>
+    </div>
+    <!-- 地域SEO: 番地は出さず対応エリアで地域を伝える（docs/03 3-1, decisions D012） -->
+    <div class="foot-area">千葉県松戸市・鎌ケ谷市を中心に東葛エリア／オンラインで全国対応</div>
+    <div class="foot-copy">© {year} MIKENEKO DESIGN — WEB &amp; IT PARTNER</div>
+  </div>
+</footer>
+
+<style>
+  footer.site {
+    background: var(--cream2);
+    border-top: 2px solid var(--ink);
+    color: var(--ink);
+    padding: 60px 0 32px;
+  }
+  .foot-top { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+  .foot-brand .row { display: flex; align-items: center; gap: 12px; }
+  .foot-brand .mark {
+    width: 34px; height: 34px; border-radius: 9px; background: var(--yellow); color: var(--ink);
+    display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 17px;
+    box-shadow: 0 3px 0 rgba(35, 34, 44, .9);
+  }
+  .foot-brand .lname { font-weight: 900; font-size: 19px; letter-spacing: .06em; }
+  .foot-brand .len { font-family: var(--font-en); font-size: 8.5px; letter-spacing: .3em; color: var(--muted); margin-top: 3px; }
+  .foot-brand p { margin-top: 18px; font-size: 12.5px; color: var(--ink2); line-height: 1.95; max-width: 320px; }
+  .foot-nav { display: flex; gap: 56px; flex-wrap: wrap; }
+  .foot-col h4 { font-size: 10px; letter-spacing: .16em; color: var(--amber-deep); font-family: var(--font-mono); margin-bottom: 14px; }
+  .foot-col a { display: block; font-size: 13px; color: var(--ink2); margin-bottom: 11px; transition: color .15s; }
+  .foot-col a:hover { color: var(--ink); text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+  .foot-area { margin-top: 42px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted); }
+  .foot-copy { margin-top: 12px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em; color: var(--muted); }
+</style>

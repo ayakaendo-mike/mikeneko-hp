@@ -1,0 +1,42 @@
+/* =========================================================
+   デザイントークン（確定・docs/08-design-guide.md 準拠 / C案ベース）
+   カラー・タイポグラフィの単一の出所（Single Source of Truth）。
+   色や字面を変えるときは必ずここを起点にする。
+   ========================================================= */
+:root {
+  /* --- brand: yellow base --- */
+  --yellow: #FFC53D;        /* 主役・CTA・アクセント */
+  --yellow-soft: #FFE9B8;   /* チップ・アイコン地 */
+  --yellow-pale: #FFF7E2;   /* セクション背景 */
+  --amber: #E89E00;         /* 濃色アクセント（数字・ラベル） */
+  --amber-deep: #C98800;    /* 濃色アクセント深め */
+
+  /* --- 補助オレンジ（限定使用） --- */
+  --orange: #F58A1F;
+  --orange-deep: #E86E12;
+
+  /* --- ink / text --- */
+  --ink: #23222C;           /* 基本テキスト・ボーダー・シャドウ（広い面には使わない） */
+  --ink2: #4E4C58;          /* 本文やや薄め */
+  --muted: #8E8B96;         /* 補助・キャプション */
+
+  /* --- surfaces --- */
+  --paper: #FFFEFA;         /* ページ背景 */
+  --cream: #FBF7F0;         /* 背景メイン */
+  --cream2: #F5EFE4;        /* 背景サブ・フッター */
+  --line: #E3DED2;          /* 罫線・ボーダー */
+  --white: #FFFFFF;
+
+  /* --- layout --- */
+  --maxw: 1120px;
+
+  /* --- fonts --- */
+  --font-sans: 'Noto Sans JP', "Hiragino Kaku Gothic ProN", sans-serif;
+  --font-en: 'Outfit', 'Noto Sans JP', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* --- 押せる要素のオフセットシャドウ --- */
+  --shadow-press: 0 5px 0 rgba(35, 34, 44, .9);
+  --shadow-press-sm: 0 4px 0 rgba(35, 34, 44, .9);
+  --shadow-press-lg: 0 6px 0 rgba(35, 34, 44, .9);
+}

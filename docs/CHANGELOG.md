@@ -1,5 +1,15 @@
 # 変更履歴
 
+## 2026-07-06（Phase2着手：Astro実装）
+- Astro 7.0.6 でプロジェクトを初期化（脆弱性ゼロ）。@astrojs/sitemap・microcms-js-sdk を導入
+- デザイントークン（`src/styles/tokens.css`）とグローバルCSS（`src/styles/global.css`）をC案から実装
+- 共通コンポーネント: `Logo.astro`（差し替え可能なワードマーク）・`Header.astro`（モバイルドロワー付き）・`Footer.astro`・`BaseLayout.astro`（SEOメタ/OGP/canonical/JSON-LD対応）
+- サイト共通設定 `src/config/site.ts`、構造化データヘルパー `src/lib/structured-data.ts`（LocalBusiness+areaServed）
+- microCMSクライアント雛形 `src/lib/microcms.ts`（未設定でもビルドが通る設計）＋ `.env.example`
+- **トップページ `src/pages/index.astro` をC案ベースで実装**（全8セクション・レスポンシブ・a11y配慮）
+- 404ページ・favicon・robots.txt
+- `astro build` 成功を確認（2ページ＋サイトマップ生成、脆弱性0）
+
 ## 2026-07-06（追記9）
 - 東葛ローカルSEO×AIO戦略を確定（[decisions.md#d012](./decisions.md#d012)）。SEO戦略ドキュメント3章を全面拡充（基本フレーズ・title/description雛形・/area/設計・AIO方針）
 - モックアップに地域表記を反映（ヒーロー3枠のAREAを「千葉・東葛／オンラインで全国対応」、フッターに控えめな地域1行を復活）
