@@ -1,0 +1,169 @@
+---
+/**
+ * お問い合わせページ
+ * ⚠️ 暫定実装: フォーム送信基盤（PHP/フォームサービス等）が未確定のため、
+ * 送信ボタンでメールソフトを起動する mailto 方式を採用している（画面上にもその旨を明記）。
+ * 送信基盤が決まり次第、fetch/POST 方式に差し替える（docs/01-requirements.md 7章）。
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { breadcrumb } from '../../lib/structured-data.ts';
+import { SITE } from '../../config/site.ts';
+
+const crumbs = [{ name: 'お問い合わせ', path: '/contact/' }];
+
+const topics = [
+  'ホームページ制作・リニューアル',
+  'デザイン制作（名刺・チラシ等）',
+  'LINE公式アカウント',
+  'AI導入・ITサポート',
+  '保守運用・Web改善',
+  'その他・まだ決まっていない',
+];
+---
+
+<BaseLayout
+  title="お問い合わせ"
+  description="みけねこデザインへのお問い合わせ・ご相談はこちらから。ご相談・お見積りは無料、オンライン対応可。売り込みはいたしません。松戸・鎌ケ谷など東葛地域を中心に、全国からご相談いただけます。"
+  structuredData={[breadcrumb(crumbs)]}
+>
+  <PageHeader
+    eyebrow="CONTACT"
+    title="お問い合わせ"
+    lead="ご相談・お見積りは無料です。売り込みはいたしませんので、「まだ何も決まっていない」段階でもお気軽にどうぞ。2営業日以内を目安にご返信します。"
+    crumbs={crumbs}
+  />
+
+  <section class="contact">
+    <div class="wrap">
+      <div class="grid">
+        <form id="contact-form" class="form" novalidate>
+          <div class="field">
+            <label for="name">お名前 <span class="req">必須</span></label>
+            <input id="name" name="name" type="text" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="company">会社名・屋号</label>
+            <input id="company" name="company" type="text" autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label for="email">メールアドレス <span class="req">必須</span></label>
+            <input id="email" name="email" type="email" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="tel">電話番号</label>
+            <input id="tel" name="tel" type="tel" autocomplete="tel" />
+          </div>
+          <div class="field">
+            <label for="topic">ご相談内容の種類</label>
+            <select id="topic" name="topic">
+              {topics.map((t) => <option value={t}>{t}</option>)}
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">ご相談内容 <span class="req">必須</span></label>
+            <textarea id="message" name="message" rows="7" required placeholder="現状のお困りごとや、やりたいことを自由にお書きください。"></textarea>
+          </div>
+          <div class="agree">
+            <label>
+              <input type="checkbox" id="agree" required />
+              <span><a href="/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>に同意する <span class="req">必須</span></span>
+            </label>
+          </div>
+          <p class="mail-note">送信ボタンを押すと、お使いのメールソフトが起動します（フォームからの直接送信は現在準備中です）。<br />メールソフトが起動しない場合は、お手数ですが <a href={`mailto:${SITE.email}`}>{SITE.email}</a> へ直接ご連絡ください。</p>
+          <button type="submit" class="btn btn-primary pressable">内容を確認して送信する<span class="ar">→</span></button>
+          <p id="form-error" class="error" role="alert" hidden>未入力の必須項目があります。ご確認ください。</p>
+        </form>
+
+        <aside class="side">
+          <div class="s-box">
+            <h2>お約束</h2>
+            <ul>
+              <li>ご相談・お見積りは無料です</li>
+              <li>売り込みはいたしません</li>
+              <li>その場で契約を迫りません</li>
+            </ul>
+          </div>
+          <div class="s-box">
+            <h2>対応について</h2>
+            <ul>
+              <li>オンライン打ち合わせ対応</li>
+              <li>松戸・鎌ケ谷は対面もOK</li>
+              <li>2営業日以内を目安にご返信</li>
+            </ul>
+          </div>
+          <a class="s-link pressable" href="/flow/">ご相談の流れを見る →</a>
+          <a class="s-link pressable" href="/price/">料金の目安を見る →</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact { padding: 88px 0 130px; }
+  .grid { display: grid; grid-template-columns: 1fr 280px; gap: 56px; align-items: start; }
+
+  .form { max-width: 640px; }
+  .field { margin-bottom: 26px; }
+  .field label { display: block; font-size: 13.5px; font-weight: 900; margin-bottom: 10px; }
+  .req { font-size: 10px; font-weight: 700; color: #fff; background: var(--orange-deep); border-radius: 5px; padding: 2px 8px; margin-left: 8px; vertical-align: 2px; }
+  input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+    width: 100%; font-family: var(--font-sans); font-size: 14.5px; color: var(--ink);
+    background: #fff; border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--ink); box-shadow: var(--shadow-press-sm); }
+  textarea { resize: vertical; }
+  .agree { margin: 30px 0 18px; font-size: 13.5px; font-weight: 700; }
+  .agree label { display: inline-flex; gap: 10px; align-items: baseline; cursor: pointer; }
+  .agree input { width: 16px; height: 16px; accent-color: var(--amber); }
+  .agree a { color: var(--amber-deep); text-decoration: underline; text-underline-offset: 3px; }
+  .mail-note { font-size: 11.5px; color: var(--muted); line-height: 1.9; margin-bottom: 24px; }
+  .mail-note a { color: var(--amber-deep); font-weight: 700; }
+  .error { margin-top: 16px; font-size: 13px; font-weight: 700; color: var(--orange-deep); }
+
+  .side { display: grid; gap: 14px; }
+  .s-box { background: var(--cream); border-radius: 14px; padding: 22px 24px; }
+  .s-box h2 { font-size: 13px; font-weight: 900; margin-bottom: 12px; }
+  .s-box ul { list-style: none; display: grid; gap: 8px; }
+  .s-box li { font-size: 12.5px; font-weight: 500; color: var(--ink2); padding-left: 18px; position: relative; }
+  .s-box li::before { content: "✓"; position: absolute; left: 0; color: var(--amber-deep); font-weight: 900; }
+  .s-link { display: block; padding: 14px 18px; font-size: 13px; font-weight: 700; border-radius: 12px; }
+
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  @media (max-width: 680px) { .contact { padding: 64px 0 96px; } }
+</style>
+
+<script>
+  // ⚠️ 暫定実装: フォーム送信基盤が決まるまでの間、mailtoでメールソフトを起動する方式
+  // 送信基盤（PHP or フォームサービス）確定後にfetch/POSTへ差し替えること
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const errorEl = document.getElementById('form-error');
+  const TO = 'info@mikeneko.design';
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      if (errorEl) errorEl.hidden = false;
+      form.reportValidity();
+      return;
+    }
+    if (errorEl) errorEl.hidden = true;
+
+    const fd = new FormData(form);
+    const lines = [
+      `お名前: ${fd.get('name')}`,
+      `会社名・屋号: ${fd.get('company') || '（未記入）'}`,
+      `メールアドレス: ${fd.get('email')}`,
+      `電話番号: ${fd.get('tel') || '（未記入）'}`,
+      `ご相談内容の種類: ${fd.get('topic')}`,
+      '',
+      'ご相談内容:',
+      String(fd.get('message')),
+    ];
+    const subject = encodeURIComponent('【お問い合わせ】みけねこデザインWebサイトより');
+    const body = encodeURIComponent(lines.join('\n'));
+    window.location.href = `mailto:${TO}?subject=${subject}&body=${body}`;
+  });
+</script>

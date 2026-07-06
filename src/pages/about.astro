@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaSection from '../components/CtaSection.astro';
+import CycleDiagram from '../components/CycleDiagram.astro';
+import { breadcrumb, localBusiness } from '../lib/structured-data.ts';
+import { SITE } from '../config/site.ts';
+
+const crumbs = [{ name: '私たちについて', path: '/about/' }];
+
+// TODO(入稿待ち): 代表者名・設立年・加盟団体等は docs/09-content-checklist.md の情報が揃い次第差し替える
+const company: [string, string][] = [
+  ['社名', 'みけねこデザイン'],
+  ['代表', '（入稿待ち）'],
+  ['所在地', '千葉県松戸市（オンラインで全国対応）'],
+  ['設立', '（入稿待ち）'],
+  ['事業内容', 'ホームページ制作／Web改善・保守運用／LINE公式アカウント構築／AI導入支援／グラフィックデザイン制作／ITサポート'],
+  ['連絡先', SITE.email],
+];
+---
+
+<BaseLayout
+  title="私たちについて"
+  description="みけねこデザインは、千葉県松戸市・鎌ケ谷市を中心に東葛エリアで活動する、Web制作・IT・AI活用支援の会社です。オンラインで全国対応。「つくって、終わり」にしない伴走型のITパートナーです。"
+  structuredData={[breadcrumb(crumbs), localBusiness()]}
+>
+  <PageHeader
+    eyebrow="ABOUT US"
+    title="私たちについて"
+    lead="みけねこデザインは、千葉県松戸市・鎌ケ谷市を中心に東葛エリアで活動する、Web制作・IT・AI活用支援の会社です。オンラインで全国対応しています。"
+    crumbs={crumbs}
+  />
+
+  <!-- 理念 -->
+  <section class="philosophy">
+    <div class="wrap">
+      <div class="ph-grid">
+        <div class="ph-copy">
+          <h2>「つくって、終わり」に<span class="hl">しない。</span></h2>
+          <p>ホームページは、公開してからが本番です。更新・改善・運用を重ねることで、集客や採用、お問い合わせにつながる<b>「会社の資産」</b>に育っていきます。</p>
+          <p>私たちは、Webサイトの制作にとどまらず、IT・AI・デザインまでまとめて相談できる<span class="mk">事業成長のパートナー</span>でありたいと考えています。納品して関係が終わるのではなく、「社外のWeb担当」として長くお付き合いする。それが、みけねこデザインの仕事の仕方です。</p>
+          <span class="chip">御社の「社外Web担当」であり、ITパートナーです</span>
+        </div>
+        <CycleDiagram />
+      </div>
+    </div>
+  </section>
+
+  <!-- 大切にしていること -->
+  <section class="values gridbg">
+    <div class="wrap">
+      <h2 class="h">大切にしていること</h2>
+      <div class="v-grid">
+        <div class="v"><div class="num">01</div><div><h3>伴走すること</h3><p>売って終わり、作って終わりにしない。公開後の運用・改善まで並走し、成果が出るまで一緒に考えます。</p></div></div>
+        <div class="v"><div class="num">02</div><div><h3>分かる言葉で話すこと</h3><p>専門用語を並べません。「相談していいのか分からないレベルのこと」こそ、気軽に聞いていただける存在でいます。</p></div></div>
+        <div class="v"><div class="num">03</div><div><h3>データで判断すること</h3><p>感覚やトレンドではなく、アクセス解析などの数字をもとに判断し、根拠のある提案をします。</p></div></div>
+        <div class="v"><div class="num">04</div><div><h3>新しい技術を味方にすること</h3><p>AIをはじめとする新しい技術を自らの業務で実践し、その経験をお客様の業務改善に還元します。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 会社概要 -->
+  <section class="company">
+    <div class="wrap">
+      <h2 class="h">会社概要</h2>
+      <dl class="c-table">
+        {company.map(([k, v]) => (
+          <div><dt>{k}</dt><dd>{v}</dd></div>
+        ))}
+      </dl>
+      <p class="area-note">対応エリア：松戸市・鎌ケ谷市を中心に東葛エリア／オンラインで全国対応 → <a href="/area/">詳しくはこちら</a></p>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .h { font-size: clamp(20px, 3vw, 26px); font-weight: 900; letter-spacing: .02em; border-top: 2px solid var(--ink); padding-top: 32px; margin-bottom: 36px; }
+  section { padding: 72px 0; }
+
+  .philosophy { padding-top: 88px; }
+  .ph-grid { display: grid; grid-template-columns: 1fr 420px; gap: 60px; align-items: center; }
+  .ph-copy h2 { font-size: clamp(24px, 4vw, 34px); font-weight: 900; letter-spacing: .02em; line-height: 1.5; margin-bottom: 26px; }
+  .ph-copy p { font-size: 15px; line-height: 2.25; color: var(--ink2); margin-bottom: 18px; font-weight: 500; }
+  .ph-copy p b { color: var(--ink); }
+  .ph-copy .mk { background: linear-gradient(transparent 66%, var(--yellow) 66%); color: var(--ink); font-weight: 700; }
+
+  .values { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .v-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .v { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 28px 30px; display: flex; gap: 22px; align-items: flex-start; }
+  .v .num { font-family: var(--font-en); font-size: 36px; font-weight: 800; color: var(--amber); line-height: 1; letter-spacing: -.02em; }
+  .v h3 { font-size: 17px; font-weight: 900; letter-spacing: .02em; margin-bottom: 8px; }
+  .v p { font-size: 13px; line-height: 2.05; color: var(--ink2); font-weight: 500; }
+
+  .c-table { max-width: 760px; }
+  .c-table div { display: flex; gap: 24px; padding: 20px 8px; border-bottom: 1px solid var(--line); }
+  .c-table div:first-child { border-top: 2px solid var(--ink); }
+  .c-table dt { width: 130px; flex-shrink: 0; font-size: 13.5px; font-weight: 900; }
+  .c-table dd { font-size: 13.5px; color: var(--ink2); font-weight: 500; line-height: 1.9; }
+  .area-note { margin-top: 24px; font-size: 12.5px; color: var(--ink2); }
+  .area-note a { color: var(--amber-deep); font-weight: 700; }
+
+  @media (max-width: 900px) { .ph-grid { grid-template-columns: 1fr; gap: 44px; } .v-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 680px) {
+    section { padding: 56px 0; }
+    .c-table div { flex-direction: column; gap: 4px; }
+  }
+</style>

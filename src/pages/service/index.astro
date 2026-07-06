@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { SERVICES } from '../../data/services.ts';
+import { breadcrumb } from '../../lib/structured-data.ts';
+
+const crumbs = [{ name: 'サービス', path: '/service/' }];
+---
+
+<BaseLayout
+  title="サービス一覧"
+  description="ホームページ制作・WordPress・LP・LINE公式・AI導入支援・Web改善・デザイン制作・ITサポート。松戸・鎌ケ谷など東葛地域を中心に、オンラインで全国対応。「つくる」から「育てる」まで、まとめてご相談いただけます。"
+  structuredData={[breadcrumb(crumbs)]}
+>
+  <PageHeader
+    eyebrow="SERVICE"
+    title="サービス一覧"
+    lead="「つくる」から「育てる」まで。Webとデザインにまつわることを、まとめてご相談いただけます。どれに当てはまるか分からない場合も、そのままご相談ください。"
+    crumbs={crumbs}
+  />
+
+  <section class="list gridbg">
+    <div class="wrap">
+      <div class="svc-grid">
+        {SERVICES.map((s) => (
+          <a class="svc pressable" href={`/service/${s.slug}/`}>
+            <span class="no">{s.no}</span>
+            <div class="ic" aria-hidden="true">{s.icon}</div>
+            <h2>{s.title}<small>{s.en}</small></h2>
+            <p>{s.summary}</p>
+            <span class="more">詳しく見る →</span>
+          </a>
+        ))}
+      </div>
+      <div class="onestop">
+        <span class="t">窓口は、<span class="y">ひとつ。</span></span>
+        <span class="d">Webも、紙も、ITまわりも。「これは誰に頼めばいい？」と悩む時間をなくし、まとめてお引き受けします。</span>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .list { padding: 88px 0 152px; }
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .svc { padding: 26px 26px; display: block; border-radius: 14px; }
+  .svc .no { font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; color: var(--muted); }
+  .svc .ic { width: 44px; height: 44px; border-radius: 11px; background: var(--yellow-soft); display: flex; align-items: center; justify-content: center; margin: 14px 0; font-size: 19px; }
+  .svc h2 { font-size: 16.5px; font-weight: 900; letter-spacing: .02em; }
+  .svc h2 small { font-family: var(--font-en); display: block; font-size: 9px; letter-spacing: .22em; color: var(--muted); font-weight: 600; margin-top: 4px; }
+  .svc p { margin-top: 10px; font-size: 12.5px; color: var(--ink2); line-height: 1.95; font-weight: 500; }
+  .svc .more { display: inline-block; margin-top: 14px; font-size: 12px; font-weight: 700; color: var(--amber-deep); }
+  .onestop { margin-top: 56px; border-radius: 14px; background: var(--cream); border: 1.5px solid var(--line); padding: 24px 32px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .onestop .t { font-size: 16px; font-weight: 900; white-space: nowrap; }
+  .onestop .t .y { background: linear-gradient(transparent 62%, var(--yellow) 62%); }
+  .onestop .d { font-size: 13px; color: var(--ink2); line-height: 1.9; font-weight: 500; flex: 1; min-width: 260px; }
+  @media (max-width: 900px) { .svc-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 680px) {
+    .list { padding: 64px 0 96px; }
+    .svc-grid { grid-template-columns: 1fr; }
+  }
+</style>

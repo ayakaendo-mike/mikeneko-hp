@@ -1,0 +1,37 @@
+---
+/**
+ * 下層ページ共通のCTAセクション（トップのCTAと同一トンマナ）
+ */
+interface Props {
+  /** 見出しを差し替えたい場合のみ指定 */
+  heading?: string;
+}
+const { heading = 'まずは、「相談」から始めませんか。' } = Astro.props;
+---
+
+<section class="cta">
+  <div class="wrap">
+    <span class="k">CONTACT</span>
+    <h2>{heading}</h2>
+    <p class="lead">売り込みはいたしません。現状のお話を伺い、いま本当に必要なことを一緒に整理するところから。</p>
+    <div class="chips">
+      <span class="chip">ご相談・お見積り 無料</span>
+      <span class="chip">オンライン対応可</span>
+      <span class="chip">その場で契約を迫りません</span>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary pressable" href="/contact/">お問い合わせフォームへ<span class="ar">→</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta { padding: 100px 0; background: linear-gradient(180deg, var(--yellow-pale), var(--yellow-soft)); border-top: 1px solid var(--line); text-align: center; }
+  .cta .k { font-family: var(--font-mono); font-size: 11px; letter-spacing: .26em; color: var(--amber-deep); }
+  .cta h2 { margin-top: 16px; font-size: clamp(26px, 4.2vw, 40px); font-weight: 900; letter-spacing: .02em; line-height: 1.55; }
+  .cta .lead { margin-top: 18px; font-size: 15px; color: var(--ink2); line-height: 2.1; font-weight: 500; }
+  .cta .chips { display: flex; gap: 12px; justify-content: center; margin-top: 26px; flex-wrap: wrap; }
+  .cta .chips .chip { background: #fff; }
+  .cta .actions { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  @media (max-width: 680px) { .cta { padding: 72px 0; } }
+</style>

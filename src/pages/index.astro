@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CycleDiagram from '../components/CycleDiagram.astro';
 import { localBusiness } from '../lib/structured-data.ts';
 
 const services = [
@@ -129,14 +130,7 @@ const cases: { tags: string[]; title: string; image: string | null; rows: [strin
           <p>みけねこデザインは、Webサイトの制作にとどまらず、IT・AI・デザインまでまとめて相談できる<span class="mk">事業成長のパートナー</span>です。</p>
           <span class="chip">御社の「社外Web担当」であり、ITパートナーです</span>
         </div>
-        <div class="cycle" aria-label="制作・公開・運用・改善のサイクル図">
-          <div class="ring" aria-hidden="true"></div>
-          <div class="node n-top"><small>MAKE</small>制作</div>
-          <div class="node n-right"><small>LAUNCH</small>公開</div>
-          <div class="node n-bottom"><small>OPERATE</small>運用</div>
-          <div class="node n-left"><small>IMPROVE</small>改善</div>
-          <div class="core"><span class="t1">成果につながる</span><span class="t2">働く資産</span></div>
-        </div>
+        <CycleDiagram />
       </div>
     </div>
   </section>
@@ -347,17 +341,7 @@ const cases: { tags: string[]; title: string; image: string | null; rows: [strin
   .about-copy p { font-size: 15px; line-height: 2.25; color: var(--ink2); margin-bottom: 18px; font-weight: 500; }
   .about-copy p b { color: var(--ink); }
   .about-copy p .mk { background: linear-gradient(transparent 66%, var(--yellow) 66%); color: var(--ink); font-weight: 700; }
-  .cycle { position: relative; width: 100%; max-width: 420px; aspect-ratio: 1; margin: 0 auto; }
-  .cycle .ring { position: absolute; inset: 9%; border: 1.5px dashed rgba(35, 34, 44, .3); border-radius: 50%; }
-  .cycle .node { position: absolute; transform: translate(-50%, -50%); background: #fff; border: 1.5px solid var(--ink); border-radius: 12px; font-size: 14px; font-weight: 700; padding: 9px 20px; white-space: nowrap; box-shadow: 0 4px 0 rgba(35, 34, 44, .9); }
-  .cycle .node small { display: block; font-family: var(--font-en); font-size: 8.5px; letter-spacing: .2em; color: var(--muted); font-weight: 600; text-align: center; }
-  .cycle .n-top { left: 50%; top: 5%; }
-  .cycle .n-right { left: 95%; top: 50%; }
-  .cycle .n-bottom { left: 50%; top: 95%; }
-  .cycle .n-left { left: 5%; top: 50%; }
-  .cycle .core { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 46%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 34% 30%, #FFE9B8, var(--yellow) 68%); color: var(--ink); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: 1.5px solid var(--ink); box-shadow: var(--shadow-press-lg); }
-  .cycle .core .t1 { font-size: 11px; font-weight: 700; }
-  .cycle .core .t2 { font-size: clamp(16px, 2.4vw, 21px); font-weight: 900; letter-spacing: .03em; }
+  /* サイクル図のスタイルは components/CycleDiagram.astro 内に移動 */
 
   /* ================= SERVICES ================= */
   .services { padding: 112px 0 152px; }
@@ -462,11 +446,6 @@ const cases: { tags: string[]; title: string; image: string | null; rows: [strin
     .hero .facts { flex-direction: column; }
     .hero .fact { border-right: 0; border-bottom: 1.5px solid var(--line); }
     .hero .fact:last-child { border-bottom: 0; }
-    /* 丸い図(サイクル図)が画面端ギリギリにならないよう左右に余白を作る */
-    .cycle { max-width: 260px; }
-    .cycle .core { width: 40%; } /* 中心円をやや小さくして四隅のカードとの間隔を確保 */
-    .cycle .n-left { left: 6%; }
-    .cycle .n-right { left: 94%; }
     .problem, .about, .services, .works, .features, .flow, .cases, .cta { padding: 76px 0; }
     .hero .wrap { padding: 64px 24px 72px; }
   }

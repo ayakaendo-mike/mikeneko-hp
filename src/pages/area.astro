@@ -1,0 +1,106 @@
+---
+/**
+ * 対応エリアページ — 地域SEOの本命受け皿（docs/03-seo-content-strategy.md 3-4 / decisions D012）
+ * 地域名ごとのページ量産はせず、このページ1枚に集約する。
+ * TODO: Googleビジネスプロフィール開設後、プロフィールへの導線を追加する（docs/06 4章）。
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { breadcrumb, faqPage, localBusiness } from '../lib/structured-data.ts';
+
+const crumbs = [{ name: '対応エリア', path: '/area/' }];
+
+const faqs = [
+  {
+    question: '松戸市・鎌ケ谷市で対面での打ち合わせは可能ですか？',
+    answer: 'はい、可能です。松戸市・鎌ケ谷市を中心とした東葛エリアでは、直接お伺いしての打ち合わせに対応しています。オンラインでの打ち合わせも選べますので、ご都合の良い方法をお選びください。',
+  },
+  {
+    question: '東葛エリア以外・千葉県外からも依頼できますか？',
+    answer: 'はい、ご依頼いただけます。打ち合わせから納品までオンラインで完結できる体制のため、全国どこからでも対応可能です。実際の制作物の共有や進捗報告もオンラインで行います。',
+  },
+  {
+    question: '対応エリアによって料金は変わりますか？',
+    answer: '基本的に変わりません。オンライン対応の場合、交通費等もかかりません。遠方への訪問をご希望の場合のみ、交通費を別途ご相談させていただくことがあります。',
+  },
+];
+---
+
+<BaseLayout
+  title="対応エリア（松戸・鎌ケ谷・東葛／全国オンライン対応）"
+  description="みけねこデザインは千葉県松戸市・鎌ケ谷市を中心に、柏市・流山市・我孫子市・野田市・船橋市・市川市など東葛エリアで活動しています。オンライン対応で全国からのご依頼も可能です。"
+  structuredData={[breadcrumb(crumbs), localBusiness(), faqPage(faqs)]}
+>
+  <PageHeader
+    eyebrow="AREA"
+    title="対応エリア"
+    lead="千葉県松戸市・鎌ケ谷市を中心に、東葛エリアの中小企業・個人事業主・団体の皆さまを支援しています。オンライン対応により、全国からのご依頼も承ります。"
+    crumbs={crumbs}
+  />
+
+  <!-- 主要エリア -->
+  <section class="main-area">
+    <div class="wrap">
+      <h2 class="h">中心エリア：松戸市・鎌ケ谷市と東葛地域</h2>
+      <p class="txt">みけねこデザインは<b>千葉県松戸市を拠点</b>に、<b>鎌ケ谷市</b>をはじめとした東葛エリアで活動しています。地域の商習慣や団体活動を肌で知る「近くの相談相手」として、対面でもオンラインでも、気軽にご相談いただけます。</p>
+      <div class="cities">
+        <div class="city main"><span class="tag">中心エリア</span>松戸市／鎌ケ谷市</div>
+        <div class="city"><span class="tag">東葛エリア</span>柏市／流山市／我孫子市／野田市</div>
+        <div class="city"><span class="tag">近隣エリア</span>船橋市／市川市 ほか千葉県全域</div>
+        <div class="city online"><span class="tag">オンライン</span>全国対応（打ち合わせ〜納品までオンライン完結OK）</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 地域とのかかわり（E-E-A-T） -->
+  <section class="local gridbg">
+    <div class="wrap">
+      <h2 class="h">地域の企業・団体とともに</h2>
+      <p class="txt">これまで、地域の建設業・製造業・士業・個人事業主の皆さまのWeb制作やデザイン制作、青年会議所など地域団体の広報物制作をお手伝いしてきました。<b>「地域の中小企業にとって、Webはまだまだ活用の余地がある」</b>——それが、東葛エリアで活動してきた私たちの実感です。だからこそ、大手向けの分業的なサービスではなく、一社一社に伴走するやり方を選んでいます。</p>
+      <!-- TODO: Googleビジネスプロフィール開設後、ここにプロフィールへのリンクを追加（docs/06 4章） -->
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="wrap">
+      <h2 class="h">対応エリアについてよくある質問</h2>
+      <div class="qa-list">
+        {faqs.map((f) => (
+          <details class="qa">
+            <summary><span class="q-mark" aria-hidden="true">Q</span>{f.question}</summary>
+            <p><span class="a-mark" aria-hidden="true">A</span>{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaSection heading="お近くでも、遠方でも。まずはご相談から。" />
+</BaseLayout>
+
+<style>
+  .h { font-size: clamp(20px, 3vw, 26px); font-weight: 900; letter-spacing: .02em; border-top: 2px solid var(--ink); padding-top: 32px; margin-bottom: 36px; }
+  section { padding: 72px 0; }
+  .txt { font-size: 14.5px; line-height: 2.2; color: var(--ink2); font-weight: 500; max-width: 720px; }
+  .txt b { color: var(--ink); background: linear-gradient(transparent 66%, var(--yellow-soft) 66%); }
+
+  .cities { margin-top: 40px; display: grid; gap: 12px; max-width: 720px; }
+  .city { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .city .tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; color: var(--amber-deep); background: var(--yellow-soft); border-radius: 6px; padding: 4px 10px; flex-shrink: 0; }
+  .city.main { border: 1.5px solid var(--ink); box-shadow: var(--shadow-press-sm); background: linear-gradient(90deg, var(--yellow-pale), #fff); }
+  .city.online { background: var(--cream); }
+
+  .local { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  .qa-list { display: grid; gap: 12px; max-width: 720px; }
+  .qa { background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+  .qa summary { cursor: pointer; padding: 18px 22px; font-size: 14.5px; font-weight: 700; display: flex; gap: 12px; align-items: baseline; list-style: none; }
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa summary::after { content: "＋"; margin-left: auto; color: var(--amber-deep); font-weight: 700; }
+  .qa[open] summary::after { content: "－"; }
+  .qa .q-mark, .qa .a-mark { font-family: var(--font-en); font-weight: 800; color: var(--amber-deep); flex-shrink: 0; }
+  .qa p { padding: 0 22px 20px 22px; font-size: 13.5px; line-height: 2.05; color: var(--ink2); font-weight: 500; display: flex; gap: 12px; align-items: baseline; }
+  @media (max-width: 680px) { section { padding: 56px 0; } }
+</style>

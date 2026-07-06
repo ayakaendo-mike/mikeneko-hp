@@ -52,10 +52,10 @@ export const SERVICE_AREAS = [
   '市川市',
 ] as const;
 
-/** フッターのサービスリンク */
+/** フッターのサービスリンク（ラベルは src/data/services.ts のtitleと一致させる） */
 export const FOOTER_SERVICES = [
   { label: 'ホームページ制作', href: '/service/homepage/' },
-  { label: 'Web改善・リニューアル', href: '/service/support/' },
+  { label: 'Web改善・保守運用', href: '/service/support/' },
   { label: 'デザイン制作', href: '/service/graphic/' },
   { label: 'AI導入支援', href: '/service/ai/' },
   { label: 'ITサポート', href: '/service/it-support/' },

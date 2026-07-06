@@ -1,0 +1,27 @@
+---
+/**
+ * 送信完了ページ
+ * 現在は暫定mailto方式のため直接遷移しないが、フォーム送信基盤の導入後に
+ * 送信完了のリダイレクト先として使用する（noindex）。
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="送信が完了しました" noindex={true}>
+  <section class="thanks">
+    <div class="wrap">
+      <span class="k">THANK YOU</span>
+      <h1>お問い合わせありがとうございます</h1>
+      <p class="lead">内容を確認のうえ、2営業日以内を目安にご返信いたします。<br />しばらく経っても返信がない場合は、お手数ですが info@mikeneko.design へ直接ご連絡ください。</p>
+      <a class="btn btn-primary pressable" href="/">トップへ戻る<span class="ar">→</span></a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .thanks { padding: 130px 0; text-align: center; }
+  .k { font-family: var(--font-mono); font-size: 11px; letter-spacing: .26em; color: var(--amber-deep); }
+  h1 { margin-top: 16px; font-size: clamp(24px, 4vw, 34px); font-weight: 900; letter-spacing: .02em; }
+  .lead { margin-top: 18px; font-size: 14px; color: var(--ink2); line-height: 2.1; font-weight: 500; }
+  .btn { margin-top: 36px; }
+</style>

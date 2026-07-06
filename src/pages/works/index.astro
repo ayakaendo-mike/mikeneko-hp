@@ -1,0 +1,37 @@
+---
+/**
+ * 制作実績一覧 — microCMS連携の実装待ちプレースホルダー（noindex）
+ * microCMSのworksスキーマ確定後、一覧・詳細（[slug].astro）を実装して置き換える。
+ * docs/04-tech-architecture.md 2章参照。
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaSection from '../../components/CtaSection.astro';
+
+const crumbs = [{ name: '制作実績', path: '/works/' }];
+---
+
+<BaseLayout title="制作実績" noindex={true}>
+  <PageHeader
+    eyebrow="WORKS"
+    title="制作実績"
+    lead="実績ページは現在準備中です。Web制作・グラフィックデザイン・名刺制作・サポート事例を順次掲載します。"
+    crumbs={crumbs}
+  />
+  <section class="prep">
+    <div class="wrap">
+      <div class="box">
+        <span class="ph">COMING SOON</span>
+        <p>掲載準備中です。実績の詳細は、お問い合わせいただければ個別にご紹介できます。</p>
+      </div>
+    </div>
+  </section>
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .prep { padding: 72px 0 120px; }
+  .box { background: var(--cream); border-radius: 16px; padding: 56px 32px; text-align: center; }
+  .ph { font-family: var(--font-mono); font-size: 12px; letter-spacing: .2em; color: var(--amber-deep); }
+  .box p { margin-top: 14px; font-size: 13.5px; color: var(--ink2); font-weight: 500; line-height: 2; }
+</style>

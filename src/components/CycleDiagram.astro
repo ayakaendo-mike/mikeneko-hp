@@ -1,0 +1,37 @@
+---
+/**
+ * MAKE→LAUNCH→OPERATE→IMPROVE のサイクル図（トップ/会社概要で共用）
+ * モバイルの余白・間隔は実測調整済み（2026-07-06 実機レビュー反映3）。
+ * 数値を変える際はモバイル(375px)で中心円とカードの間隔・画面端余白を確認すること。
+ */
+---
+
+<div class="cycle" aria-label="制作・公開・運用・改善のサイクル図">
+  <div class="ring" aria-hidden="true"></div>
+  <div class="node n-top"><small>MAKE</small>制作</div>
+  <div class="node n-right"><small>LAUNCH</small>公開</div>
+  <div class="node n-bottom"><small>OPERATE</small>運用</div>
+  <div class="node n-left"><small>IMPROVE</small>改善</div>
+  <div class="core"><span class="t1">成果につながる</span><span class="t2">働く資産</span></div>
+</div>
+
+<style>
+  .cycle { position: relative; width: 100%; max-width: 420px; aspect-ratio: 1; margin: 0 auto; }
+  .cycle .ring { position: absolute; inset: 9%; border: 1.5px dashed rgba(35, 34, 44, .3); border-radius: 50%; }
+  .cycle .node { position: absolute; transform: translate(-50%, -50%); background: #fff; border: 1.5px solid var(--ink); border-radius: 12px; font-size: 14px; font-weight: 700; padding: 9px 20px; white-space: nowrap; box-shadow: 0 4px 0 rgba(35, 34, 44, .9); }
+  .cycle .node small { display: block; font-family: var(--font-en); font-size: 8.5px; letter-spacing: .2em; color: var(--muted); font-weight: 600; text-align: center; }
+  .cycle .n-top { left: 50%; top: 5%; }
+  .cycle .n-right { left: 95%; top: 50%; }
+  .cycle .n-bottom { left: 50%; top: 95%; }
+  .cycle .n-left { left: 5%; top: 50%; }
+  .cycle .core { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 46%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 34% 30%, #FFE9B8, var(--yellow) 68%); color: var(--ink); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: 1.5px solid var(--ink); box-shadow: var(--shadow-press-lg); }
+  .cycle .core .t1 { font-size: 11px; font-weight: 700; }
+  .cycle .core .t2 { font-size: clamp(16px, 2.4vw, 21px); font-weight: 900; letter-spacing: .03em; }
+  @media (max-width: 680px) {
+    /* 画面端に触れず、中心円ともくっつかないバランス（実測: 端余白27px+/円との間隔16px+） */
+    .cycle { max-width: 260px; }
+    .cycle .core { width: 40%; }
+    .cycle .n-left { left: 6%; }
+    .cycle .n-right { left: 94%; }
+  }
+</style>

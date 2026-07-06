@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { breadcrumb } from '../lib/structured-data.ts';
+
+const crumbs = [{ name: 'ご相談の流れ', path: '/flow/' }];
+
+const steps = [
+  {
+    n: '1', title: 'ヒアリング（無料）',
+    body: '現状の課題とゴールをお聞きします。「まだ何も決まっていない」段階で大丈夫です。資料の準備も不要。現状のお話を聞かせていただくところから、一緒に整理します。オンラインでも対面でも対応可能です。',
+  },
+  {
+    n: '2', title: 'ご提案・お見積り',
+    body: 'ヒアリング内容をもとに、目的とご予算に合わせたプランと概算をご提示します。「小さく始めて育てる」段階的なプランのご提案も可能です。内容にご納得いただけてからのご契約となります。その場で契約を迫ることはありません。',
+  },
+  {
+    n: '3', title: '制作',
+    body: '構成・デザイン・実装と、段階ごとに確認いただきながら丁寧に形にします。進捗はこまめに共有しますので、「頼んだきり音沙汰がない」ということはありません。原稿や写真のご相談も一緒に進めます。',
+  },
+  {
+    n: '4', title: '公開',
+    body: 'ドメイン・サーバーの手配や設定など、公開までの作業はすべてお任せいただけます。検索エンジンへの登録・アクセス解析の設定など、公開後に必要になる下準備もセットで行います。',
+  },
+  {
+    n: '5', title: '運用・改善', hl: true,
+    body: '公開後こそ本番です。アクセス状況をデータで確認しながら、更新・改善を続けて「働く資産」に育てていきます。月額の保守運用プランのほか、必要なときだけのスポット対応もご相談いただけます。',
+  },
+];
+---
+
+<BaseLayout
+  title="ご相談の流れ"
+  description="みけねこデザインへのご相談から公開・運用までの流れをご紹介。ヒアリング・お見積りは無料、オンライン対応可。松戸・鎌ケ谷など東葛地域を中心に、全国からご相談いただけます。"
+  structuredData={[breadcrumb(crumbs)]}
+>
+  <PageHeader
+    eyebrow="FLOW"
+    title="ご相談の流れ"
+    lead="はじめてホームページを作る方でも安心して進められるよう、5つのステップに分けてご説明します。ご相談・お見積りは無料です。"
+    crumbs={crumbs}
+  />
+
+  <section class="flow gridbg">
+    <div class="wrap">
+      <ol class="steps">
+        {steps.map((s) => (
+          <li class:list={['step', { hl: s.hl }]}>
+            <div class="dot">{s.n}</div>
+            <div class="body">
+              <h2>{s.title}</h2>
+              <p>{s.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <div class="note">
+        <span class="m">ご相談・お見積りは無料です。</span>
+        <span class="chip">オンライン対応OK</span>
+        <span class="chip">相談だけでもOK</span>
+        <span class="chip">初めての方も安心の進行</span>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .flow { padding: 88px 0 120px; }
+  .steps { list-style: none; max-width: 760px; position: relative; }
+  .steps::before { content: ""; position: absolute; left: 29px; top: 30px; bottom: 30px; width: 2px; background-image: linear-gradient(var(--ink) 55%, transparent 55%); background-size: 2px 12px; }
+  .step { display: flex; gap: 26px; padding: 26px 0; position: relative; }
+  .dot { width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0; background: #fff; border: 1.8px solid var(--ink); display: flex; align-items: center; justify-content: center; font-family: var(--font-en); font-size: 18px; font-weight: 700; box-shadow: 0 4px 0 rgba(35, 34, 44, .88); position: relative; z-index: 2; }
+  .step.hl .dot { background: linear-gradient(135deg, #FFE9B8, var(--yellow)); }
+  .body h2 { font-size: 18px; font-weight: 900; letter-spacing: .02em; padding-top: 14px; }
+  .body p { margin-top: 12px; font-size: 13.5px; color: var(--ink2); line-height: 2.1; font-weight: 500; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 20px 24px; }
+  .note { margin-top: 56px; background: #fff; border: 1.5px solid var(--line); border-radius: 14px; padding: 20px 30px; display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; max-width: 760px; }
+  .note .m { font-size: 15px; font-weight: 900; }
+  @media (max-width: 680px) {
+    .flow { padding: 64px 0 96px; }
+    .steps::before { left: 21px; }
+    .step { gap: 16px; }
+    .dot { width: 44px; height: 44px; font-size: 15px; }
+    .body h2 { padding-top: 8px; }
+  }
+</style>

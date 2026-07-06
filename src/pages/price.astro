@@ -1,0 +1,91 @@
+---
+/**
+ * 料金ページ（仮掲載・後日ブラッシュアップ前提 — docs/01-requirements.md 8章 / decisions D006）
+ * 価格帯は営業資料由来の「目安」。正式な見積もりはヒアリング後。
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { breadcrumb } from '../lib/structured-data.ts';
+
+const crumbs = [{ name: '料金', path: '/price/' }];
+
+const prices: { name: string; note: string; value: string; small?: string }[] = [
+  { name: '名刺・チラシなど', note: 'グラフィックデザイン各種', value: '数万円', small: '〜' },
+  { name: 'ランディングページ', note: '1ページ完結型のLP', value: '20〜50', small: '万円程度' },
+  { name: 'コーポレートサイト', note: '会社の顔となるホームページ', value: '30〜100', small: '万円程度' },
+  { name: 'リニューアル', note: '既存サイトの改善・作り直し', value: '内容に応じてご提案' },
+  { name: '保守・運用', note: '更新代行・改善サポート', value: '月額制にも対応' },
+];
+---
+
+<BaseLayout
+  title="料金の目安"
+  description="みけねこデザインの料金の目安。名刺・チラシは数万円〜、LPは20〜50万円程度、コーポレートサイトは30〜100万円程度。松戸・鎌ケ谷など東葛地域を中心に、オンラインで全国対応。ご相談・お見積りは無料です。"
+  structuredData={[breadcrumb(crumbs)]}
+>
+  <PageHeader
+    eyebrow="PRICE"
+    title="料金の目安"
+    lead="「いくらかかるか分からない」という不安をなくすために、あくまで目安として公開しています。ご要望・ページ数・機能によって変動するため、正式なお見積りはヒアリングのうえでご提案します。"
+    crumbs={crumbs}
+  />
+
+  <section class="price">
+    <div class="wrap">
+      <div class="price-grid">
+        <div>
+          {prices.map((p) => (
+            <div class="prow">
+              <div class="pn">{p.name}<small>{p.note}</small></div>
+              <div class="leader"></div>
+              <div class={`pv${p.small ? '' : ' pv-text'}`}>{p.value}{p.small && <small>{p.small}</small>}</div>
+            </div>
+          ))}
+          <p class="price-note">※ ご要望・ページ数・機能によって変動します。ヒアリングのうえ、最適なお見積りをご提案いたします。</p>
+        </div>
+        <aside class="price-side">
+          <h2>ご予算が決まっていなくても、大丈夫です。</h2>
+          <p>「まず小さく始めて、成果を見ながら育てる」という進め方もご提案できます。無理のない計画を一緒に立てましょう。</p>
+          <div class="chips">
+            <span class="chip">スモールスタートOK</span>
+            <span class="chip">段階的な拡張プラン</span>
+            <span class="chip">補助金活用のご相談も</span>
+          </div>
+        </aside>
+      </div>
+      <div class="links">
+        <a class="btn pressable" href="/flow/">ご相談の流れを見る<span class="ar">→</span></a>
+        <a class="btn pressable" href="/service/">サービス一覧を見る<span class="ar">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection heading="概算だけでも、お気軽にどうぞ。" />
+</BaseLayout>
+
+<style>
+  .price { padding: 88px 0 120px; }
+  .price-grid { display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: start; }
+  .prow { display: flex; align-items: baseline; gap: 16px; padding: 21px 4px; border-bottom: 1px solid var(--line); }
+  .prow:first-child { border-top: 2px solid var(--ink); }
+  .pn { font-size: 16px; font-weight: 900; width: 210px; flex-shrink: 0; }
+  .pn small { display: block; font-size: 10.5px; color: var(--muted); font-weight: 500; margin-top: 3px; }
+  .leader { flex: 1; border-bottom: 2px dotted var(--line); transform: translateY(-4px); }
+  .pv { font-size: 18px; font-weight: 900; white-space: nowrap; background: linear-gradient(transparent 62%, var(--yellow) 62%); }
+  .pv small { font-size: 12px; color: var(--ink2); font-weight: 700; }
+  .pv-text { font-size: 15px; }
+  .price-note { margin-top: 16px; font-size: 11px; color: var(--muted); line-height: 1.9; }
+  .price-side { background: #fff; border: 1.5px solid var(--ink); border-radius: 16px; padding: 28px 28px; box-shadow: var(--shadow-press-lg); }
+  .price-side h2 { font-size: 16px; font-weight: 900; margin-bottom: 12px; line-height: 1.7; }
+  .price-side p { font-size: 12.5px; line-height: 2.05; color: var(--ink2); font-weight: 500; margin-bottom: 16px; }
+  .price-side .chips { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+  .links { margin-top: 56px; display: flex; gap: 14px; flex-wrap: wrap; }
+  @media (max-width: 900px) { .price-grid { grid-template-columns: 1fr; gap: 32px; } }
+  @media (max-width: 680px) {
+    .price { padding: 64px 0 96px; }
+    .prow { flex-wrap: wrap; }
+    .pn { width: 100%; }
+    .leader { display: none; }
+  }
+</style>

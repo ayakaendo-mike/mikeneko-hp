@@ -1,0 +1,81 @@
+---
+/**
+ * よくある質問 — microCMS連携の実装待ち。
+ * 当面はコード側に初期FAQを持ち、microCMSのfaqスキーマ確定後にAPI取得へ切り替える。
+ * FAQPage構造化データはAIO対策の要（docs/03 3-5）。
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { breadcrumb, faqPage } from '../lib/structured-data.ts';
+
+const crumbs = [{ name: 'よくある質問', path: '/faq/' }];
+
+const faqs = [
+  {
+    question: '相談やお見積りにお金はかかりますか？',
+    answer: 'かかりません。ご相談・お見積りは無料です。お話を伺ったうえで、必要な内容と概算をご提示し、ご納得いただけてからのご契約となります。',
+  },
+  {
+    question: 'まだ何も決まっていないのですが、相談してもいいですか？',
+    answer: 'もちろんです。「何から始めればいいか分からない」という段階のご相談が実はいちばん多いです。現状のお話を聞かせていただくところから、一緒に整理します。',
+  },
+  {
+    question: 'ホームページ制作の費用はどれくらいですか？',
+    answer: '内容により変動しますが、目安としてランディングページは20〜50万円程度、コーポレートサイトは30〜100万円程度です。詳しくは料金ページをご覧ください。スモールスタートのご提案も可能です。',
+  },
+  {
+    question: '松戸市・鎌ケ谷市以外からも依頼できますか？',
+    answer: 'はい。オンライン対応により全国からご依頼いただけます。松戸市・鎌ケ谷市など東葛エリアでは対面での打ち合わせにも対応しています。',
+  },
+  {
+    question: '他社で作ったホームページの修正や引き継ぎもお願いできますか？',
+    answer: '対応可能です。制作会社と連絡が取れなくなったサイトの引き継ぎや、既存WordPressサイトの修正・保守のご相談も多くいただいています。まずは現状をお聞かせください。',
+  },
+  {
+    question: '公開後の更新や運用もお願いできますか？',
+    answer: 'はい。月額制の保守運用プランで「社外のWeb担当」として更新・改善を継続的にサポートします。必要なときだけのスポット対応もご相談いただけます。',
+  },
+];
+---
+
+<BaseLayout
+  title="よくある質問"
+  description="みけねこデザインへよく寄せられる質問をまとめました。費用・相談の進め方・対応エリア・他社制作サイトの引き継ぎなど。ご相談・お見積りは無料です。"
+  structuredData={[breadcrumb(crumbs), faqPage(faqs)]}
+>
+  <PageHeader
+    eyebrow="FAQ"
+    title="よくある質問"
+    lead="ご相談の前によくいただく質問をまとめました。ここにない疑問は、お問い合わせフォームからお気軽にどうぞ。"
+    crumbs={crumbs}
+  />
+
+  <section class="faq">
+    <div class="wrap">
+      <div class="qa-list">
+        {faqs.map((f) => (
+          <details class="qa">
+            <summary><span class="q-mark" aria-hidden="true">Q</span>{f.question}</summary>
+            <p><span class="a-mark" aria-hidden="true">A</span>{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaSection heading="ここにない疑問は、直接どうぞ。" />
+</BaseLayout>
+
+<style>
+  .faq { padding: 72px 0 120px; }
+  .qa-list { display: grid; gap: 12px; max-width: 760px; }
+  .qa { background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+  .qa summary { cursor: pointer; padding: 18px 22px; font-size: 14.5px; font-weight: 700; display: flex; gap: 12px; align-items: baseline; list-style: none; }
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa summary::after { content: "＋"; margin-left: auto; color: var(--amber-deep); font-weight: 700; }
+  .qa[open] summary::after { content: "－"; }
+  .qa .q-mark, .qa .a-mark { font-family: var(--font-en); font-weight: 800; color: var(--amber-deep); flex-shrink: 0; }
+  .qa p { padding: 0 22px 20px 22px; font-size: 13.5px; line-height: 2.05; color: var(--ink2); font-weight: 500; display: flex; gap: 12px; align-items: baseline; }
+  @media (max-width: 680px) { .faq { padding: 56px 0 96px; } }
+</style>

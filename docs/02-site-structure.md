@@ -24,8 +24,8 @@ updated: 2026-07-06
 | ├ LP制作 | `/service/lp/` | Astro（コード） | |
 | ├ LINE公式・Lステップ構築 | `/service/line/` | Astro（コード） | |
 | ├ AI導入支援 | `/service/ai/` | Astro（コード） | |
-| ├ DX支援 | `/service/dx/` | Astro（コード） | |
-| ├ 保守運用・Web改善・SEO改善 | `/service/support/` | Astro（コード） | |
+| ├ ~~DX支援~~ | ~~`/service/dx/`~~ | - | **当面提供外のためページを作らない**（2026-07-06 実機レビューで「AI導入だけにする」と決定。提供開始時に `src/data/services.ts` へ追加すれば個別ページが自動生成される） |
+| ├ Web改善・保守運用 | `/service/support/` | Astro（コード） | |
 | ├ デザイン制作 ※追加 | `/service/graphic/` | Astro（コード） | 名刺・チラシ・パンフレット・ロゴ・バナー。実際の実績（名刺5〜6点、グラフィック4〜5点）があるため独立ページ化 |
 | └ ITサポート ※追加 | `/service/it-support/` | Astro（コード） | PC/ツール相談・クラウド導入・社内IT整備。Project.mdの中長期SEOキーワードに明記されているが従来案に無かったため追加 |
 | 制作実績一覧／詳細 | `/works/` `/works/[slug]/` | **microCMS** | 案件完了ごとにスタッフが追加。カテゴリ: Web制作／グラフィックデザイン／名刺制作／サポート事例 |
