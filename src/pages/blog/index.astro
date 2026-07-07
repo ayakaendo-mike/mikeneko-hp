@@ -1,0 +1,85 @@
+---
+/**
+ * ブログ一覧 — microCMS（blog）連携。
+ * SEO記事のメインエンジン（docs/02-site-structure.md）。実績が0件の間は「準備中」表示でnoindex。
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { breadcrumb } from '../../lib/structured-data.ts';
+import { getList, type Blog } from '../../lib/microcms.ts';
+
+const crumbs = [{ name: 'ブログ', path: '/blog/' }];
+
+const posts = await getList<Blog>('blog', { orders: '-publishedAt' });
+---
+
+<BaseLayout
+  title="ブログ"
+  description="ホームページ制作・Web改善・AI活用・DXに関するお役立ち情報を発信しています。松戸・鎌ケ谷など東葛地域を中心に、オンラインで全国対応。"
+  noindex={posts.length === 0}
+  structuredData={posts.length > 0 ? [breadcrumb(crumbs)] : []}
+>
+  <PageHeader
+    eyebrow="BLOG"
+    title="ブログ"
+    lead="ホームページ制作・Web改善・AI活用・DXに関するお役立ち情報をお届けします。"
+    crumbs={crumbs}
+  />
+
+  {posts.length === 0 ? (
+    <section class="prep">
+      <div class="wrap">
+        <div class="box">
+          <span class="ph">COMING SOON</span>
+          <p>記事を準備中です。公開までしばらくお待ちください。</p>
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section class="posts">
+      <div class="wrap">
+        <div class="grid">
+          {posts.map((p) => (
+            <a class="card pressable" href={`/blog/${p.slug ?? p.id}/`}>
+              <div class="media">
+                {p.eyecatch
+                  ? <img src={p.eyecatch.url} alt={p.title} loading="lazy" />
+                  : <span class="ph">画像準備中</span>}
+              </div>
+              <div class="body">
+                {p.category && <span class="tag">{p.category}</span>}
+                <h3>{p.title}</h3>
+                <time datetime={p.publishedAt}>
+                  {new Date(p.publishedAt).toLocaleDateString('ja-JP')}
+                </time>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .prep { padding: 72px 0 120px; }
+  .box { background: var(--cream); border-radius: 16px; padding: 56px 32px; text-align: center; }
+  .ph { font-family: var(--font-mono); font-size: 12px; letter-spacing: .2em; color: var(--amber-deep); }
+  .box p { margin-top: 14px; font-size: 13.5px; color: var(--ink2); font-weight: 500; line-height: 2; }
+
+  .posts { padding: 72px 0 120px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .card { display: block; border-radius: 16px; overflow: hidden; background: #fff; border: 1px solid var(--line); }
+  .media { aspect-ratio: 4/3; background: var(--cream); display: grid; place-items: center; }
+  .media img { width: 100%; height: 100%; object-fit: cover; }
+  .body { padding: 20px; }
+  .tag { display: inline-block; font-size: 10.5px; font-weight: 700; color: var(--ink2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; letter-spacing: .03em; margin-bottom: 10px; }
+  .body h3 { font-size: 15px; font-weight: 800; line-height: 1.6; }
+  .body time { display: block; margin-top: 8px; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .posts { padding: 56px 0 96px; } }
+</style>

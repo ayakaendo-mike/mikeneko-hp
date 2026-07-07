@@ -65,3 +65,27 @@ export function faqPage(faqs: { question: string; answer: string }[]) {
     })),
   };
 }
+
+/** Article（ブログ記事。docs/03 2章・E-E-A-T対策で執筆者を明示） */
+export function article(blog: {
+  title: string;
+  publishedAt: string;
+  author: string;
+  eyecatch?: { url: string };
+  metaDescription?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: blog.title,
+    ...(blog.eyecatch ? { image: [blog.eyecatch.url] } : {}),
+    datePublished: blog.publishedAt,
+    author: { '@type': 'Person', name: blog.author },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE.name,
+      logo: { '@type': 'ImageObject', url: new URL(SITE.ogImage, SITE.url).href },
+    },
+    description: blog.metaDescription ?? SITE.defaultDescription,
+  };
+}

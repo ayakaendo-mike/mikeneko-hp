@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 2026-07-07（blog一覧・個別ページを実装）
+- `/blog/`一覧・個別ページ（`[slug].astro`新設）をmicroCMS（blog API）連携で実装。`/works/`と同じパターンで0件の間は「準備中」表示＋noindex
+- 構造化データに`article()`（Article schema）を追加（`structured-data.ts`）。E-E-A-T対策として執筆者名を記事詳細ページに明示（docs/03 4章）
+- フッターナビに「ブログ」リンクを追加
+- 記事投入自体はユーザーが後日行う（保留方針は変わらず）。ページ実装が完了したので、記事執筆後は投入するだけで一覧・詳細が自動生成される
+
 ## 2026-07-07（microCMS連携: faq/works）
 - microCMSの`.env`（サービスドメイン・APIキー）を設定
 - `/faq/`をmicroCMS（faq API）連携に切り替え。ハードコードしていた6問はmicroCMS管理画面に移行済み
