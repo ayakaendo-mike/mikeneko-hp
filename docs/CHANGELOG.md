@@ -1,5 +1,12 @@
 # 変更履歴
 
+## 2026-07-07（microCMS連携: faq/works）
+- microCMSの`.env`（サービスドメイン・APIキー）を設定
+- `/faq/`をmicroCMS（faq API）連携に切り替え。ハードコードしていた6問はmicroCMS管理画面に移行済み
+- `/works/`一覧・個別ページ（`[slug].astro`新設）をmicroCMS（works API）連携で実装。0件の間は「準備中」表示を維持
+- `microcms.ts`のBlog型でcategory/tagsをセレクト型（string/string[]）に修正（実スキーマと不一致だった）
+- blog記事の執筆は保留中のため、blog連携の実装は次回以降
+
 ## 2026-07-06（下層ページ実装）
 - 共通部品を追加: PageHeader（パンくず+JSON-LD対応）・CtaSection・CycleDiagram（トップと会社概要で共用化）
 - サービスをデータ駆動化（`src/data/services.ts` がSSoT）。`/service/` 一覧＋個別8ページを動的生成（DX支援は当面提供外のため未定義）
