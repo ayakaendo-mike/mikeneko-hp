@@ -1,0 +1,63 @@
+name: Build & Deploy (reusable)
+
+# docs/07-deploy-strategy.md 準拠。deploy.yml（mainマージ時）と
+# rebuild-on-publish.yml（microCMS Webhook時）の両方から呼び出す共通処理。
+
+on:
+  workflow_call:
+    secrets:
+      MICROCMS_SERVICE_DOMAIN:
+        required: true
+      MICROCMS_API_KEY:
+        required: true
+      XSERVER_SSH_HOST:
+        required: true
+      XSERVER_SSH_PORT:
+        required: true
+      XSERVER_SSH_USER:
+        required: true
+      XSERVER_SSH_KEY:
+        required: true
+      XSERVER_REMOTE_PATH:
+        required: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: xserver-deploy
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (Astro static)
+        run: npm run build
+        env:
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.XSERVER_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "${{ secrets.XSERVER_SSH_PORT }}" -H "${{ secrets.XSERVER_SSH_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy via rsync
+        run: |
+          rsync -avz --delete \
+            --exclude ".htaccess" \
+            --exclude ".well-known" \
+            --exclude "cgi-bin" \
+            -e "ssh -p ${{ secrets.XSERVER_SSH_PORT }} -i ~/.ssh/deploy_key" \
+            dist/ "${{ secrets.XSERVER_SSH_USER }}@${{ secrets.XSERVER_SSH_HOST }}:${{ secrets.XSERVER_REMOTE_PATH }}"

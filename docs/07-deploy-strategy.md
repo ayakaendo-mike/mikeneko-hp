@@ -1,7 +1,7 @@
 ---
 title: デプロイ戦略
-status: 確定／実際のワークフロー実装は未着手（承認待ち）
-updated: 2026-07-06
+status: 確定／ワークフロー実装済み・GitHub Secrets登録とmicroCMS Webhook設定は未着手
+updated: 2026-07-08
 ---
 
 # デプロイ戦略
@@ -43,10 +43,24 @@ updated: 2026-07-06
 ## 6. CDN・キャッシュ（将来検討）
 Cloudflareを前段に置く構成を将来的に検討（無料枠で十分）。初期リリースではXserver単体で問題ない。
 
-## 7. 実装ステップ（承認後）
-1. GitHub Secretsに接続情報を登録
-2. `.github/workflows/deploy.yml` 実装（mainマージ時ビルド&デプロイ）
-3. `.github/workflows/rebuild-on-publish.yml` 実装（microCMS Webhook受信時）
-4. microCMS側でWebhook設定
+## 7. 実装ステップ
 
-これらは実装フェーズであり、ユーザーの承認後に着手する。
+1. ~~`.github/workflows/deploy.yml` 実装（mainマージ時ビルド&デプロイ）~~ 実装済み（2026-07-08）
+2. ~~`.github/workflows/rebuild-on-publish.yml` 実装（microCMS Webhook受信時）~~ 実装済み（2026-07-08）。共通処理は`build-deploy.yml`（再利用ワークフロー）に集約
+3. **GitHub Secretsに接続情報を登録（未着手・ユーザー作業）** — リポジトリの Settings → Secrets and variables → Actions で以下を登録:
+
+   | Secret名 | 内容 |
+   |---|---|
+   | `MICROCMS_SERVICE_DOMAIN` | `.env`と同じ値 |
+   | `MICROCMS_API_KEY` | `.env`と同じ値 |
+   | `XSERVER_SSH_HOST` | Xserverのホスト名（サーバーパネルで確認） |
+   | `XSERVER_SSH_PORT` | SSHポート（Xserverは通常`10022`。サーバーパネルで要確認） |
+   | `XSERVER_SSH_USER` | SSHユーザー名 |
+   | `XSERVER_SSH_KEY` | デプロイ専用のSSH秘密鍵（`ssh-keygen`で新規発行し、公開鍵をXserver側に登録する運用を推奨。既存の個人鍵は使い回さない） |
+   | `XSERVER_REMOTE_PATH` | 転送先ディレクトリ（例: `/home/xxxx/mikeneko.design/public_html/`） |
+
+4. **microCMS側でWebhook設定（未着手・ユーザー作業）** — 管理画面のAPI設定からWebhookを追加し、コンテンツ公開時に
+   `POST https://api.github.com/repos/<owner>/<repo>/dispatches`（`Authorization: Bearer <GitHubパーソナルアクセストークン(repo権限)>`、body `{"event_type": "microcms-publish"}`）
+   を送るよう設定する。トークンはmicroCMS側にしか渡らないため、リポジトリのfine-grained PAT（Contents: write権限のみ）を発行するのが安全。
+
+ワークフローの詳細は `.github/workflows/build-deploy.yml`（共通処理）・`deploy.yml`（pushトリガー）・`rebuild-on-publish.yml`（Webhookトリガー）を参照。

@@ -1,0 +1,18 @@
+name: Rebuild on microCMS publish
+
+# microCMS管理画面でコンテンツを公開した際、Webhookでこのイベントを発火させる。
+# 設定手順は docs/07-deploy-strategy.md 7章 / docs/06-operation-guide.md 参照。
+# microCMS側のWebhook（GET/POST）から
+#   POST https://api.github.com/repos/<owner>/<repo>/dispatches
+#   Authorization: Bearer <個人アクセストークン(repo権限)>
+#   Body: {"event_type": "microcms-publish"}
+# を送るよう設定する。
+
+on:
+  repository_dispatch:
+    types: [microcms-publish]
+
+jobs:
+  build-and-deploy:
+    uses: ./.github/workflows/build-deploy.yml
+    secrets: inherit

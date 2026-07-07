@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 2026-07-08（GitHub Actionsデプロイワークフローを実装）
+- `.github/workflows/build-deploy.yml`（再利用ワークフロー）: Astroビルド→SSH+rsyncでXserverへ転送
+- `.github/workflows/deploy.yml`: mainへのpush時にビルド&デプロイ
+- `.github/workflows/rebuild-on-publish.yml`: microCMS Webhook（`repository_dispatch: microcms-publish`）受信時にビルド&デプロイ
+- **未完了（ユーザー作業）**: GitHub SecretsへのXserver接続情報・microCMS APIキー登録、microCMS側のWebhook設定。手順は`docs/07-deploy-strategy.md` 7章に記載
+
 ## 2026-07-07（blog一覧・個別ページを実装）
 - `/blog/`一覧・個別ページ（`[slug].astro`新設）をmicroCMS（blog API）連携で実装。`/works/`と同じパターンで0件の間は「準備中」表示＋noindex
 - 構造化データに`article()`（Article schema）を追加（`structured-data.ts`）。E-E-A-T対策として執筆者名を記事詳細ページに明示（docs/03 4章）
