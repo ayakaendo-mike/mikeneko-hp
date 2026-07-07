@@ -1,0 +1,83 @@
+---
+/**
+ * 制作実績 個別ページ — microCMS（works）連携。
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { breadcrumb } from '../../lib/structured-data.ts';
+import { getList, type Work } from '../../lib/microcms.ts';
+
+export async function getStaticPaths() {
+  const works = await getList<Work>('works');
+  return works.map((w) => ({ params: { slug: w.slug ?? w.id }, props: { work: w } }));
+}
+
+interface Props { work: Work; }
+const { work } = Astro.props;
+
+const crumbs = [
+  { name: '制作実績', path: '/works/' },
+  { name: work.title, path: `/works/${work.slug ?? work.id}/` },
+];
+---
+
+<BaseLayout
+  title={work.title}
+  description={`${work.title}｜みけねこデザインの制作実績${work.clientName ? `（${work.clientName}様）` : ''}`}
+  structuredData={[breadcrumb(crumbs)]}
+>
+  <PageHeader eyebrow="WORKS" title={work.title} crumbs={crumbs} />
+
+  <section class="detail">
+    <div class="wrap">
+      <div class="media">
+        {work.thumbnail
+          ? <img src={work.thumbnail.url} alt={work.title} />
+          : <span class="ph">画像準備中</span>}
+      </div>
+
+      <dl class="meta">
+        {work.workType && <div><dt>種別</dt><dd>{work.workType}</dd></div>}
+        {work.industry && <div><dt>業種</dt><dd>{work.industry}</dd></div>}
+        {work.clientName && <div><dt>クライアント</dt><dd>{work.clientName}</dd></div>}
+        {work.serviceType && work.serviceType.length > 0 && (
+          <div><dt>対応サービス</dt><dd>{work.serviceType.join('、')}</dd></div>
+        )}
+      </dl>
+
+      <div class="body" set:html={work.body} />
+
+      {work.externalUrl && (
+        <a class="btn pressable" href={work.externalUrl} target="_blank" rel="noopener noreferrer">
+          公開サイトを見る<span class="ar">→</span>
+        </a>
+      )}
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .detail { padding: 72px 0 120px; }
+  .media { aspect-ratio: 16/9; background: var(--cream); border-radius: 16px; overflow: hidden; display: grid; place-items: center; margin-bottom: 32px; }
+  .media img { width: 100%; height: 100%; object-fit: cover; }
+  .ph { font-family: var(--font-mono); font-size: 12px; letter-spacing: .2em; color: var(--amber-deep); }
+
+  .meta { display: grid; gap: 0; margin-bottom: 40px; max-width: 640px; }
+  .meta div { display: flex; gap: 16px; padding: 14px 0; border-top: 1px dashed var(--line); }
+  .meta dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; color: var(--amber-deep); flex-shrink: 0; width: 96px; padding-top: 2px; }
+  .meta dd { font-size: 13.5px; color: var(--ink2); font-weight: 500; line-height: 1.9; }
+
+  .body { max-width: 720px; font-size: 14px; line-height: 2.05; color: var(--ink2); font-weight: 500; }
+  .body :global(h2) { font-size: 18px; font-weight: 800; color: var(--ink); margin: 40px 0 16px; }
+  .body :global(h3) { font-size: 15px; font-weight: 800; color: var(--ink); margin: 32px 0 12px; }
+  .body :global(p) { margin: 0 0 16px; }
+  .body :global(img) { width: 100%; border-radius: 12px; margin: 24px 0; }
+  .body :global(a) { color: var(--amber-deep); text-decoration: underline; }
+
+  .btn { margin-top: 40px; display: inline-flex; align-items: center; gap: 8px; }
+
+  @media (max-width: 680px) { .detail { padding: 56px 0 96px; } }
+</style>

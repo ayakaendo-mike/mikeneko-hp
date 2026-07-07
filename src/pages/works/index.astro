@@ -1,31 +1,64 @@
 ---
 /**
- * 制作実績一覧 — microCMS連携の実装待ちプレースホルダー（noindex）
- * microCMSのworksスキーマ確定後、一覧・詳細（[slug].astro）を実装して置き換える。
- * docs/04-tech-architecture.md 2章参照。
+ * 制作実績一覧 — microCMS（works）連携。
+ * 実績が0件の間は「準備中」表示のままnoindexにする。
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import CtaSection from '../../components/CtaSection.astro';
+import { breadcrumb } from '../../lib/structured-data.ts';
+import { getList, type Work } from '../../lib/microcms.ts';
 
 const crumbs = [{ name: '制作実績', path: '/works/' }];
+
+const works = await getList<Work>('works', { orders: '-publishedAt' });
 ---
 
-<BaseLayout title="制作実績" noindex={true}>
+<BaseLayout
+  title="制作実績"
+  description="みけねこデザインが手がけたホームページ制作・グラフィックデザイン・名刺制作・サポート事例をご紹介します。"
+  noindex={works.length === 0}
+  structuredData={works.length > 0 ? [breadcrumb(crumbs)] : []}
+>
   <PageHeader
     eyebrow="WORKS"
     title="制作実績"
-    lead="実績ページは現在準備中です。Web制作・グラフィックデザイン・名刺制作・サポート事例を順次掲載します。"
+    lead="Web制作・グラフィックデザイン・名刺制作・サポート事例をご紹介します。"
     crumbs={crumbs}
   />
-  <section class="prep">
-    <div class="wrap">
-      <div class="box">
-        <span class="ph">COMING SOON</span>
-        <p>掲載準備中です。実績の詳細は、お問い合わせいただければ個別にご紹介できます。</p>
+
+  {works.length === 0 ? (
+    <section class="prep">
+      <div class="wrap">
+        <div class="box">
+          <span class="ph">COMING SOON</span>
+          <p>掲載準備中です。実績の詳細は、お問い合わせいただければ個別にご紹介できます。</p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  ) : (
+    <section class="works">
+      <div class="wrap">
+        <div class="grid">
+          {works.map((w) => (
+            <a class="card pressable" href={`/works/${w.slug ?? w.id}/`}>
+              <div class="media">
+                {w.thumbnail
+                  ? <img src={w.thumbnail.url} alt={w.title} loading="lazy" />
+                  : <span class="ph">画像準備中</span>}
+              </div>
+              <div class="body">
+                {w.workType && <span class="tag">{w.workType}</span>}
+                <h3>{w.title}</h3>
+                {w.clientName && <p class="client">{w.clientName}</p>}
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <CtaSection />
 </BaseLayout>
 
@@ -34,4 +67,17 @@ const crumbs = [{ name: '制作実績', path: '/works/' }];
   .box { background: var(--cream); border-radius: 16px; padding: 56px 32px; text-align: center; }
   .ph { font-family: var(--font-mono); font-size: 12px; letter-spacing: .2em; color: var(--amber-deep); }
   .box p { margin-top: 14px; font-size: 13.5px; color: var(--ink2); font-weight: 500; line-height: 2; }
+
+  .works { padding: 72px 0 120px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .card { display: block; border-radius: 16px; overflow: hidden; background: #fff; border: 1px solid var(--line); }
+  .media { aspect-ratio: 4/3; background: var(--cream); display: grid; place-items: center; }
+  .media img { width: 100%; height: 100%; object-fit: cover; }
+  .body { padding: 20px; }
+  .tag { display: inline-block; font-size: 10.5px; font-weight: 700; color: var(--ink2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; letter-spacing: .03em; margin-bottom: 10px; }
+  .body h3 { font-size: 15px; font-weight: 800; line-height: 1.6; }
+  .client { margin-top: 8px; font-size: 12.5px; color: var(--ink2); font-weight: 500; }
+
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .works { padding: 56px 0 96px; } }
 </style>

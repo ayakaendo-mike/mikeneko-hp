@@ -1,42 +1,17 @@
 ---
 /**
- * よくある質問 — microCMS連携の実装待ち。
- * 当面はコード側に初期FAQを持ち、microCMSのfaqスキーマ確定後にAPI取得へ切り替える。
+ * よくある質問 — microCMS（faq）連携。
  * FAQPage構造化データはAIO対策の要（docs/03 3-5）。
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import CtaSection from '../components/CtaSection.astro';
 import { breadcrumb, faqPage } from '../lib/structured-data.ts';
+import { getList, type Faq } from '../lib/microcms.ts';
 
 const crumbs = [{ name: 'よくある質問', path: '/faq/' }];
 
-const faqs = [
-  {
-    question: '相談やお見積りにお金はかかりますか？',
-    answer: 'かかりません。ご相談・お見積りは無料です。お話を伺ったうえで、必要な内容と概算をご提示し、ご納得いただけてからのご契約となります。',
-  },
-  {
-    question: 'まだ何も決まっていないのですが、相談してもいいですか？',
-    answer: 'もちろんです。「何から始めればいいか分からない」という段階のご相談が実はいちばん多いです。現状のお話を聞かせていただくところから、一緒に整理します。',
-  },
-  {
-    question: 'ホームページ制作の費用はどれくらいですか？',
-    answer: '内容により変動しますが、目安としてランディングページは20〜50万円程度、コーポレートサイトは30〜100万円程度です。詳しくは料金ページをご覧ください。スモールスタートのご提案も可能です。',
-  },
-  {
-    question: '松戸市・鎌ケ谷市以外からも依頼できますか？',
-    answer: 'はい。オンライン対応により全国からご依頼いただけます。松戸市・鎌ケ谷市など東葛エリアでは対面での打ち合わせにも対応しています。',
-  },
-  {
-    question: '他社で作ったホームページの修正や引き継ぎもお願いできますか？',
-    answer: '対応可能です。制作会社と連絡が取れなくなったサイトの引き継ぎや、既存WordPressサイトの修正・保守のご相談も多くいただいています。まずは現状をお聞かせください。',
-  },
-  {
-    question: '公開後の更新や運用もお願いできますか？',
-    answer: 'はい。月額制の保守運用プランで「社外のWeb担当」として更新・改善を継続的にサポートします。必要なときだけのスポット対応もご相談いただけます。',
-  },
-];
+const faqs = await getList<Faq>('faq', { orders: '-publishedAt' });
 ---
 
 <BaseLayout

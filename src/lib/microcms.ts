@@ -5,9 +5,6 @@
  * 環境変数（.env / GitHub Secrets で設定。コミットしない）:
  *   MICROCMS_SERVICE_DOMAIN … サブドメイン（xxxx.microcms.io の xxxx）
  *   MICROCMS_API_KEY         … 読み取りAPIキー
- *
- * 注意: アカウント作成済みだが各APIは未作成のため、実際のフィールド型は
- *       microCMS側のスキーマ確定後にこの型定義と突き合わせて調整する。
  */
 import { createClient } from 'microcms-js-sdk';
 
@@ -28,9 +25,9 @@ export interface Blog {
   slug?: string;
   eyecatch?: { url: string; width: number; height: number };
   body: string;
-  category?: { id: string; name: string };
-  tags?: { id: string; name: string }[];
-  author?: string;
+  category?: string;
+  tags?: string[];
+  author: string;
   metaDescription?: string;
   publishedAt: string;
 }
