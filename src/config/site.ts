@@ -31,6 +31,8 @@ export const SITE = {
   /** 言語 */
   locale: 'ja_JP',
   lang: 'ja',
+  /** 仮公開中フラグ。trueの間は全ページ強制noindex,nofollow（本公開時にfalseへ戻す） */
+  noindexAll: true,
 } as const;
 
 /** グローバルナビ */
