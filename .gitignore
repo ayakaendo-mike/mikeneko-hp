@@ -7,3 +7,6 @@ dist/
 !.env.example
 .DS_Store
 *.log
+
+# 会社案内などの営業資料（Git管理対象外）
+営業資料/

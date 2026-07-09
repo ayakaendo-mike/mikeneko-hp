@@ -14,6 +14,7 @@ export function localBusiness() {
     alternateName: SITE.nameEn,
     url: SITE.url,
     email: SITE.email,
+    telephone: SITE.tel,
     image: new URL(SITE.ogImage, SITE.url).href,
     description: SITE.defaultDescription,
     slogan: SITE.catchcopy,

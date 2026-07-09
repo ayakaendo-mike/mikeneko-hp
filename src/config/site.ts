@@ -22,6 +22,8 @@ export const SITE = {
   catchcopy: 'Webを、事業の「働く資産」へ。',
   /** 問い合わせ先メール */
   email: 'info@mikeneko.design',
+  /** 電話番号 */
+  tel: '070-3152-1549',
   /** 地域の基本フレーズ（docs 3-1） */
   areaPhrase: '松戸・鎌ケ谷など東葛地域を中心に、オンラインで全国対応',
   /** OGP画像（正式ロゴ確定までは仮） */
