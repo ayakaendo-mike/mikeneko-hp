@@ -14,6 +14,7 @@ const year = new Date().getFullYear();
             <div class="len">{SITE.nameEn}</div>
           </div>
         </div>
+        <p class="addr">{SITE.address}<br />TEL: <a href={`tel:${SITE.tel.replace(/-/g, '')}`}>{SITE.tel}</a></p>
         <p>Webを、事業の「働く資産」へ。中小企業の社外Web担当として、制作から運用・改善まで伴走します。</p>
       </div>
       <nav class="foot-nav" aria-label="フッターナビゲーション">
@@ -29,8 +30,6 @@ const year = new Date().getFullYear();
         </div>
         <div class="foot-col">
           <h4>CONTACT</h4>
-          <a href={`tel:${SITE.tel.replace(/-/g, '')}`}>{SITE.tel}</a>
-          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
           <a href="/contact/">お問い合わせフォーム</a>
           <a href="/privacy/">プライバシーポリシー</a>
         </div>
@@ -59,6 +58,8 @@ const year = new Date().getFullYear();
   .foot-brand .lname { font-weight: 900; font-size: 19px; letter-spacing: .06em; }
   .foot-brand .len { font-family: var(--font-en); font-size: 8.5px; letter-spacing: .3em; color: var(--muted); margin-top: 3px; }
   .foot-brand p { margin-top: 18px; font-size: 12.5px; color: var(--ink2); line-height: 1.95; max-width: 320px; }
+  .foot-brand p.addr a { color: var(--ink2); font-weight: 700; transition: color .15s; }
+  .foot-brand p.addr a:hover { color: var(--ink); text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 3px; text-underline-offset: 3px; }
   .foot-nav { display: flex; gap: 56px; flex-wrap: wrap; }
   .foot-col h4 { font-size: 10px; letter-spacing: .16em; color: var(--amber-deep); font-family: var(--font-mono); margin-bottom: 14px; }
   .foot-col a { display: block; font-size: 13px; color: var(--ink2); margin-bottom: 11px; transition: color .15s; }

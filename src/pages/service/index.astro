@@ -6,11 +6,12 @@ import { SERVICES } from '../../data/services.ts';
 import { breadcrumb } from '../../lib/structured-data.ts';
 
 const crumbs = [{ name: 'サービス', path: '/service/' }];
+const featuredServices = SERVICES.filter((s) => s.featured);
 ---
 
 <BaseLayout
   title="サービス一覧"
-  description="ホームページ制作・WordPress・LP・LINE公式・AI導入支援・Web改善・デザイン制作・ITサポート。松戸・鎌ケ谷など東葛地域を中心に、オンラインで全国対応。「つくる」から「育てる」まで、まとめてご相談いただけます。"
+  description="ホームページ制作・LINE公式・AI導入支援・Web改善・デザイン制作・ITサポート。松戸・鎌ケ谷など東葛地域を中心に、オンラインで全国対応。「つくる」から「育てる」まで、まとめてご相談いただけます。"
   structuredData={[breadcrumb(crumbs)]}
 >
   <PageHeader
@@ -23,7 +24,7 @@ const crumbs = [{ name: 'サービス', path: '/service/' }];
   <section class="list gridbg">
     <div class="wrap">
       <div class="svc-grid">
-        {SERVICES.map((s) => (
+        {featuredServices.map((s) => (
           <a class="svc pressable" href={`/service/${s.slug}/`}>
             <span class="no">{s.no}</span>
             <div class="ic" aria-hidden="true">{s.icon}</div>

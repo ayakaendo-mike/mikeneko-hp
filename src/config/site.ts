@@ -3,6 +3,7 @@
  * 会社名・キャッチコピー・ナビ・SEOの既定値をここで一元管理する。
  * docs/03-seo-content-strategy.md / docs/08-design-guide.md 準拠。
  */
+import { SERVICES } from '../data/services.ts';
 
 export const SITE = {
   /** 会社名（表示用） */
@@ -24,6 +25,8 @@ export const SITE = {
   email: 'info@mikeneko.design',
   /** 電話番号 */
   tel: '070-3152-1549',
+  /** 所在地（番地まで） */
+  address: '〒271-0092 千葉県松戸市松戸1230-1 ピアザビル9階 section9-8',
   /** 地域の基本フレーズ（docs 3-1） */
   areaPhrase: '松戸・鎌ケ谷など東葛地域を中心に、オンラインで全国対応',
   /** OGP画像（正式ロゴ確定までは仮） */
@@ -56,11 +59,8 @@ export const SERVICE_AREAS = [
   '市川市',
 ] as const;
 
-/** フッターのサービスリンク（ラベルは src/data/services.ts のtitleと一致させる） */
-export const FOOTER_SERVICES = [
-  { label: 'ホームページ制作', href: '/service/homepage/' },
-  { label: 'Web改善・保守運用', href: '/service/support/' },
-  { label: 'デザイン制作', href: '/service/graphic/' },
-  { label: 'AI導入支援', href: '/service/ai/' },
-  { label: 'ITサポート', href: '/service/it-support/' },
-] as const;
+/** フッターのサービスリンク（src/data/services.ts の featured:true な項目から自動生成） */
+export const FOOTER_SERVICES = SERVICES.filter((s) => s.featured).map((s) => ({
+  label: s.title,
+  href: `/service/${s.slug}/`,
+}));
